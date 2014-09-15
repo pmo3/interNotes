@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "Lookup List",
+  "description": "Keep an easily accessible list of items you want to look up later on",
+  "version": "1.0",
+
+  "permissions": [
+    "https://google.com/",
+    "tabs",
+    "storage"
+  ],
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  }
+}

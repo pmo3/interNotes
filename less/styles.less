@@ -1,0 +1,129 @@
+@import "variables.less";
+
+body {
+  min-width: 357px;
+  overflow-x: hidden;
+  margin: 20px;
+  background-color: #f5f5f5;
+  color: #fff;
+  font-family: "Arial", Helvetica, sans-serif;
+}
+
+.header {
+  text-align: center;
+  background: @brand-primary;
+  margin: -20px;
+  margin-bottom: 20px;
+  height: 35px;
+  position: relative;
+
+  p {
+    padding: 10px;
+  }
+}
+
+ul {
+  list-style: none;
+  border: 1px solid #1b1919;
+  padding: 0;
+
+  li a {
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s;
+    color: #212121;
+  }
+}
+
+li {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  z-index: 1;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+li:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  width: 0px;
+  height: auto;
+  background: @brand-100;
+  z-index: -1;
+  transition: width 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+li:hover:after {
+  width: 100%;
+}
+
+li:hover {
+  a {
+    // color: @brand-secondary;
+  }
+  span i {
+    margin-right: 20px;
+    opacity: 1.0;
+  }
+}
+
+li span i {
+  float: right;
+  transition: margin-right 0.7s, opacity 0.7s;
+  opacity: 0;
+  color: @brand-secondary;
+}
+
+
+.addButton {
+  -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+  box-shadow:inset 0px 1px 0px 0px #fce2c1;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #ff5722) );
+  background-color:#ffc477;
+  border-radius: 2px;
+  text-indent:0;
+  border:1px solid #eeb44f;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  font-style:normal;
+  height:25px;
+  width:25px;
+  text-decoration:none;
+  text-align:center;
+  text-shadow:1px 1px 0px #cc9f52;
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+.addButton:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff5722), color-stop(1, #ffc477) );
+  background-color:#ff5722;
+}
+/* This button was generated using CSSButtonGenerator.com */
+
+.new-item {
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  input {
+    width: 99%;
+  }
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+#submitItem {
+  position: absolute;
+  top: 25px;
+  right: 0px;
+  width: auto;
+}
