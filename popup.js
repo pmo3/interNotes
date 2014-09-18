@@ -3,6 +3,7 @@ var listGenerator = {
   userItems : [],
 
   buildLink : function(query){
+    query = encodeURIComponent(query);
     var baseURL = "https://www.google.com/search?q=";
     return baseURL + query;
   },

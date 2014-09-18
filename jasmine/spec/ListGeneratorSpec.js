@@ -29,6 +29,13 @@ describe("listGenerator", function(){
     it("should return a well-formed link to google search results", function(){
       link = gen.buildLink("things");
       expect(link).toEqual("https://www.google.com/search?q=things");
+      link = gen.buildLink("things and/or stuff");
+      expect(link).toEqual("https://www.google.com/search?q=things%20and%2For%20stuff");
+    });
+
+    it("should escape spaces and other characters", function(){
+      link = gen.buildLink("things and stuff");
+      expect(link).toEqual("https://www.google.com/search?q=things%20and%20stuff");
     });
   });
 
@@ -76,21 +83,21 @@ describe("listGenerator", function(){
   });
 
   describe("addItem", function(){
-    it("should add the item to gen.userItems", function(){
+    it("should add the item to userItems", function(){
       expect(gen.userItems.length).toBe(0);
       gen.addItem("things");
       expect(gen.userItems.length).toBe(1);
       expect(gen.userItems).toEqual(["things"]);
     });
 
-    it("should call gen.makeElements", function(){
+    it("should call makeElements", function(){
       spyOn(gen, "makeElements").and.callThrough();
       gen.addItem("things");
       expect(gen.makeElements).toHaveBeenCalled();
       expect(gen.makeElements).toHaveBeenCalledWith(["things"]);
     });
 
-    it("should call gen.addClickListeners", function(){
+    it("should call addClickListeners", function(){
       spyOn(gen, "addClickListeners");
       $("<ul id='list'></ul>").appendTo($(".main"));
       gen.addItem("things");
