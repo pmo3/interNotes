@@ -71,7 +71,7 @@ var listGenerator = {
   initAll : function(){
     this.getItems();
     document.getElementById("add-button").addEventListener("click", function(){
-      document.getElementById("new-div").style.height = "50px";
+      document.getElementById("new-div").style.height = "60px";
     });
     document.getElementById("submitItem").addEventListener("click", function(){
       listGenerator.addItem(document.getElementById("item-input").value);
@@ -81,6 +81,9 @@ var listGenerator = {
       if (key == 13){
         listGenerator.addItem(document.getElementById("item-input").value);
       }
+    });
+    document.getElementById("site-choice").addEventListener("click", function(){
+      document.getElementById("choice-container").style.height = "86px";
     });
   }
 };

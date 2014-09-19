@@ -1,4 +1,6 @@
 @import "variables.less";
+@import "mixins.less";
+
 
 body {
   min-width: 357px;
@@ -6,7 +8,7 @@ body {
   margin: 20px;
   background-color: #f5f5f5;
   color: #fff;
-  font-family: "Arial", Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .header {
@@ -18,7 +20,7 @@ body {
   position: relative;
 
   p {
-    padding: 10px;
+    padding: 5px;
   }
 }
 
@@ -29,15 +31,15 @@ ul {
 
   li a {
     text-decoration: none;
-    margin-left: 20px;
+    margin-left: 10px;
     transition: color 0.3s;
-    color: #212121;
+    color: @font-color;
   }
 }
 
 li {
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
   border-bottom: 1px solid #ccc;
   position: relative;
   z-index: 1;
@@ -75,7 +77,9 @@ li:hover {
 }
 
 li span i {
-  float: right;
+  position: absolute;
+  top: 7px;
+  right: 0;
   transition: margin-right 0.7s, opacity 0.7s;
   opacity: 0;
   color: @brand-secondary;
@@ -92,10 +96,7 @@ li span i {
   text-indent:0;
   border:1px solid @brand-secondary;
   color:#ffffff;
-  font-family:Arial;
   font-size:15px;
-  font-weight:bold;
-  font-style:normal;
   height:25px;
   width:25px;
   text-decoration:none;
@@ -124,7 +125,100 @@ li span i {
 
 #submitItem {
   position: absolute;
-  top: 25px;
+  top: 35px;
   right: 0px;
   width: auto;
+}
+
+#select {
+  font-family: sans-serif, "FontAwesome";
+  width: 80px;
+  position: absolute;
+  top: 25px;
+  left: 0;
+}
+
+.new-input {
+  display: inline;
+  position: relative;
+  top: 5px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.new-input input {
+  border: none;
+  padding: 0;
+  width: 325px;
+  height: 20px;
+  position: relative;
+  top: -3px;
+}
+
+.new-input span {
+  color: @hint-text;
+}
+
+.arrow_box {
+  z-index: 2;
+  position: relative;
+  background: @brand-secondary-100;
+  border: 2px solid @brand-secondary;
+  color: @font-color;
+  width: 100px;
+  top: 10px;
+  font-size: 12px;
+  padding: 4px;
+}
+.arrow_box:after, .arrow_box:before {
+  bottom: 100%;
+  left: 20%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.arrow_box:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: @brand-secondary-100;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.arrow_box:before {
+  border-color: rgba(194, 225, 245, 0);
+  border-bottom-color: @brand-secondary;
+  border-width: 13px;
+  margin-left: -13px;
+}
+
+.site-choice {
+  border: none;
+
+  li {
+    border-bottom: none;
+    padding: 2px;
+    cursor: pointer;
+    // opacity: 0.1;
+  }
+}
+
+.new-input span i {
+  .transition-length(0.5s);
+  cursor: pointer;
+}
+
+.new-input span:hover {
+  color: @brand-primary;
+}
+
+.container-box {
+  height: 0px;
+  overflow:hidden;
+  position: absolute;
+  top: 85px;
+  z-index: 2;
+  .transition-length(0.2s);
 }

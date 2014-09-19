@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>LookUp List</title>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href="less/styles.css" rel="stylesheet" type="text/css">
     <script src="jquery-2.1.1.min.js"></script>
     <script src="popup.js"></script>
@@ -10,11 +11,22 @@
   <body>
     <div class="header">
       <p>My Lookup List</p>
-      <button type="button" class="addButton" id="add-button">+</button>
+      <button type="button" class="addButton" id="add-button"><i class="fa fa-plus"></i></button>
     </div>
     <div class="new-item" id="new-div">
-      <input type="text" id="item-input">
+      <div class="new-input">
+        <span id="site-choice"><i class="fa fa-google">&nbsp;</i><i class="fa fa-angle-down"></i></span>
+        <input name="newItem" id="item-input"/>
+      </div>
       <button type="button" class="addButton" id="submitItem">Add</button>
+    </div>
+    <div class="container-box" id="choice-container">
+      <div class="arrow_box">
+        <ul class="site-choice">
+          <li><i class="fa fa-google">&nbsp;&nbsp;Google</i></li>
+          <li><i class="fa fa-youtube">&nbsp;YouTube</i></li>
+        </ul>
+      </div>
     </div>
     <div class="main">
     </div>
