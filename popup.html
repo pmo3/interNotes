@@ -11,23 +11,22 @@
   <body>
     <div class="header">
       <p>My Lookup List</p>
-      <button type="button" class="addButton" id="add-button"><i class="fa fa-plus"></i></button>
+      <i id="add-button" class="fa fa-plus"></i>
     </div>
     <div class="new-item" id="new-div">
       <div class="new-input">
-        <span id="site-choice"><i class="fa fa-google">&nbsp;</i><i class="fa fa-angle-down"></i></span>
+        <span id="site-choice" data-choice="google"><i id="site-icon" class="fa fa-google">&nbsp;</i><i class="fa fa-angle-down"></i></span>
         <input name="newItem" id="item-input"/>
       </div>
-      <button type="button" class="addButton" id="submitItem">Add</button>
+      <button type="button" class="button" id="submitItem">Add</button>
     </div>
-    <div class="container-box" id="choice-container">
       <div class="arrow_box">
-        <ul class="site-choice">
-          <li><i class="fa fa-google">&nbsp;&nbsp;Google</i></li>
-          <li><i class="fa fa-youtube">&nbsp;YouTube</i></li>
+        <ul class="sites-list">
+          <li data-site="google" class="site"><i class="fa fa-google">&nbsp;&nbsp;Google</i></li>
+          <li data-site="youtube" class="site"><i class="fa fa-youtube">&nbsp;YouTube</i></li>
         </ul>
       </div>
-    </div>
+    <!-- </div> -->
     <div class="main">
     </div>
   </body>

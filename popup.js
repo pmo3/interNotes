@@ -35,6 +35,7 @@ var listGenerator = {
   deleteItem : function(item){
     var index = listGenerator.userItems.indexOf(item);
     var li = document.getElementById(item);
+    // $("#"+item).addClass("bounceOutLeft");
     li.parentNode.removeChild(li);
     listGenerator.userItems.splice(index, 1);
     listGenerator.saveChanges();
@@ -59,19 +60,33 @@ var listGenerator = {
       //add only the new item to DOM
       listGenerator.makeElements([item]);
       listGenerator.saveChanges();
-      listGenerator.hideInput();
+      listGenerator.hideElement(document.getElementById("new-div"));
+      document.getElementById("item-input").value = '';
     }
   },
 
-  hideInput : function(){
-    document.getElementById("item-input").value = '';
-    document.getElementById("new-div").style.height = "0px";
+  hideElement : function(element){
+    // document.getElementById("item-input").value = '';
+    element.style.height = "0px";
+  },
+
+  showElement : function(element, h){
+    element.style.height = h;
+  },
+
+  chooseSite : function(site){
+    current = document.getElementById("site-choice").dataset.choice;
+    document.getElementById("site-choice").dataset.choice = site;
+    $("#site-icon").removeClass("fa-"+current);
+    $("#site-icon").addClass("fa-"+site);
   },
 
   initAll : function(){
     this.getItems();
     document.getElementById("add-button").addEventListener("click", function(){
-      document.getElementById("new-div").style.height = "60px";
+      listGenerator.showElement(document.getElementById("new-div"), "60px");
+      $("#new-div").addClass("fadeInDown");
+      $("#add-button").addClass("add-to-cancel");
     });
     document.getElementById("submitItem").addEventListener("click", function(){
       listGenerator.addItem(document.getElementById("item-input").value);
@@ -82,8 +97,12 @@ var listGenerator = {
         listGenerator.addItem(document.getElementById("item-input").value);
       }
     });
-    document.getElementById("site-choice").addEventListener("click", function(){
-      document.getElementById("choice-container").style.height = "86px";
+    $("#site-choice").click(function(){
+      $(".arrow_box").toggle("fast");
+    });
+    $(".site").click(function(){
+      var choice = $(this).data("site");
+      listGenerator.chooseSite(choice);
     });
   }
 };

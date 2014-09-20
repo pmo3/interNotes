@@ -1,5 +1,6 @@
 @import "variables.less";
 @import "mixins.less";
+@import "animations.less";
 
 
 body {
@@ -78,7 +79,7 @@ li:hover {
 
 li span i {
   position: absolute;
-  top: 7px;
+  top: 9px;
   right: 0;
   transition: margin-right 0.7s, opacity 0.7s;
   opacity: 0;
@@ -86,8 +87,40 @@ li span i {
   cursor: pointer;
 }
 
+#add-button {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  transition: color 0.5s;
+  &:hover {
+    color: @brand-secondary-300;
+  }
+}
 
-.addButton {
+@-webkit-keyframes add-to-cancel {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  50% {
+    opacity: 0;
+    transform: rotate(720deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(45deg);
+  }
+}
+
+.add-to-cancel {
+  -webkit-animation: add-to-cancel 1s 1;
+  -webkit-animation-fill-mode: forwards;
+}
+
+
+.button {
   -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
   box-shadow:inset 0px 1px 0px 0px #fce2c1;
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #e54e1e) );
@@ -106,7 +139,7 @@ li span i {
   top: 5px;
   right: 20px;
 }
-.addButton:hover {
+.button:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff5722), color-stop(1, #ffc477) );
   background-color:#ff5722;
 }
@@ -119,8 +152,8 @@ li span i {
   input {
     width: 99%;
   }
-  -webkit-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
+  -webkit-transition: all .8s ease 0s;
+  transition: all .8s ease 0s;
 }
 
 #submitItem {
@@ -161,12 +194,13 @@ li span i {
 
 .arrow_box {
   z-index: 2;
-  position: relative;
+  display: none;
+  position: absolute;
   background: @brand-secondary-100;
   border: 2px solid @brand-secondary;
   color: @font-color;
   width: 100px;
-  top: 10px;
+  top: 90px;
   font-size: 12px;
   padding: 4px;
 }
@@ -194,7 +228,7 @@ li span i {
   margin-left: -13px;
 }
 
-.site-choice {
+.sites-list {
   border: none;
 
   li {
@@ -215,8 +249,9 @@ li span i {
 }
 
 .container-box {
-  height: 0px;
-  overflow:hidden;
+  display: none;
+  // height: 0px;
+  // overflow:hidden;
   position: absolute;
   top: 85px;
   z-index: 2;

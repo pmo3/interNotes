@@ -111,11 +111,18 @@ describe("listGenerator", function(){
       expect(gen.saveChanges).toHaveBeenCalled();
     });
 
-    it("should call gen.hideInput", function(){
-      spyOn(gen, "hideInput");
+    it("should call hideElement", function(){
+      spyOn(gen, "hideElement");
       gen.addItem("things");
-      expect(gen.hideInput).toHaveBeenCalled();
+      expect(gen.hideElement).toHaveBeenCalled();
     });
+
+    it("should set input value to ''", function(){
+      input = document.getElementById("item-input");
+      expect(input.value).toEqual('bonobos');
+      gen.addItem("things");
+      expect(input.value).toEqual('');
+    })
 
     it("should do nothing if given empty string as parameter", function(){
       gen.userItems = [];
@@ -124,16 +131,41 @@ describe("listGenerator", function(){
     });
   });
 
-  describe("hideInput", function(){
-    it("should set input text to ''", function(){
-      expect(document.getElementById("item-input").value).toEqual("bonobos");
-      gen.hideInput();
-      expect(document.getElementById("item-input").value).toEqual('');
-    });
-    it("should set div height to 0", function(){
-      document.getElementById("new-div").style.height = "50px";
-      gen.hideInput();
+  describe("hideElement", function(){
+    it("should set element height to 0px", function(){
+     document.getElementById("new-div").style.height = "50px";
+      gen.hideElement(document.getElementById("new-div"));
       expect(document.getElementById("new-div").style.height).toEqual("0px");
+    });
+  });
+
+  describe("showElement", function(){
+    it("should set given element's height to given height", function(){
+      el = document.getElementById("new-div");
+      gen.showElement(el, "80px");
+      expect(el.style.height).toEqual("80px");
+    });
+  });
+
+  describe("chooseSite", function(){
+    it("should set data-choice attribute to correct site", function(){
+      markup = "<div class='all'><span id='site-choice' data-choice='google'><i class='fa fa-google'></i><i class='fa fa-angle-down'></i></span><ul class='site-choice'><li data-site='google'><i></i></li><li data-site='youtube'><i></i></li></ul></div>";
+      $(markup).appendTo('body');
+      choice = document.getElementById("site-choice").dataset.choice;
+      expect(choice).toEqual("google");
+      gen.chooseSite("youtube");
+      choice = document.getElementById("site-choice").dataset.choice;
+      expect(choice).toEqual("youtube");
+      $(".all").remove();
+
+    });
+    it("should set icon to chosen site", function(){
+      markup = "<div class='all'><span id='site-choice' data-choice='google'><i id='site-icon' class='fa fa-google'></i><i class='fa fa-angle-down'></i></span><ul class='site-choice'><li data-site='google'><i></i></li><li data-site='youtube'><i></i></li></ul></div>";
+      $(markup).appendTo('body');
+      expect($("#site-icon").attr("class")).toEqual("fa fa-google");
+      gen.chooseSite("youtube");
+      expect($("#site-icon").attr("class")).toEqual("fa fa-youtube");
+      $(".all").remove();
     });
   });
 });
