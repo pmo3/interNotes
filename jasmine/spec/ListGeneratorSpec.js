@@ -2,8 +2,20 @@ describe("listGenerator", function(){
   var items;
 
   beforeEach(function(){
+    jasmine.addMatchers({
+      // got this function definition from jasmine-jquery library.
+      // you can find it on github: https://github.com/velesin/jasmine-jquery
+      toHaveClass: function(){
+        return {
+          compare: function(actual, className){
+            return {pass: $(actual).hasClass(className)}
+          }
+        }
+      }
+    });
     gen = listGenerator;
-    $('<div id="everything"><div class="header"><p>My Lookup List</p><button type="button" class="addButton" id="add-button">+</button></div><div class="new-item" id="new-div"><input type="text" id="item-input" value="bonobos"><button type="button" class="addButton" id="submitItem">Add</button></div><div class="main"></div></div>').appendTo('body');
+    $('<div id="everything"><div class="header"><p>My Lookup List</p><button type="button" class="addButton" id="add-button" data-count="0">+</button></div><div class="new-item" id="new-div"><input type="text" id="item-input" value="bonobos"><button type="button" class="addButton" id="submitItem">Add</button></div><div class="main"></div></div>').appendTo('body');
+    $("<div class='all'><span id='site-choice' data-choice='google'><i id='site-icon' class='fa fa-google'></i><i class='fa fa-angle-down'></i></span><ul class='site-choice'><li data-site='google'><i></i></li><li data-site='youtube'><i></i></li></ul></div>").appendTo('body');
     
     // chrome specific objects seem to cause errors (probably permissions-related)
     // so we'll stub that out entirely
@@ -23,6 +35,7 @@ describe("listGenerator", function(){
 
   afterEach(function(){
     $("#everything").remove();
+    $(".all").remove();
   });
 
   describe("buildLink", function(){
@@ -36,6 +49,11 @@ describe("listGenerator", function(){
     it("should escape spaces and other characters", function(){
       link = gen.buildLink("things and stuff");
       expect(link).toEqual("https://www.google.com/search?q=things%20and%20stuff");
+    });
+    it("should build a well-formed link to youtube search results", function(){
+      gen.chooseSite("youtube");
+      link = gen.buildLink("foo");
+      expect(link).toEqual("https://www.youtube.com/results?search_query=foo");
     });
   });
 
@@ -149,8 +167,6 @@ describe("listGenerator", function(){
 
   describe("chooseSite", function(){
     it("should set data-choice attribute to correct site", function(){
-      markup = "<div class='all'><span id='site-choice' data-choice='google'><i class='fa fa-google'></i><i class='fa fa-angle-down'></i></span><ul class='site-choice'><li data-site='google'><i></i></li><li data-site='youtube'><i></i></li></ul></div>";
-      $(markup).appendTo('body');
       choice = document.getElementById("site-choice").dataset.choice;
       expect(choice).toEqual("google");
       gen.chooseSite("youtube");
@@ -160,12 +176,50 @@ describe("listGenerator", function(){
 
     });
     it("should set icon to chosen site", function(){
-      markup = "<div class='all'><span id='site-choice' data-choice='google'><i id='site-icon' class='fa fa-google'></i><i class='fa fa-angle-down'></i></span><ul class='site-choice'><li data-site='google'><i></i></li><li data-site='youtube'><i></i></li></ul></div>";
-      $(markup).appendTo('body');
       expect($("#site-icon").attr("class")).toEqual("fa fa-google");
       gen.chooseSite("youtube");
       expect($("#site-icon").attr("class")).toEqual("fa fa-youtube");
       $(".all").remove();
+    });
+  });
+
+  describe("toggleNew", function(){
+    it("should show input when clicked for the first time", function(){
+      var newdiv = document.getElementById("new-div");
+      spyOn(gen, "showElement");
+      gen.toggleNew();
+      expect(gen.showElement).toHaveBeenCalled();
+      expect(gen.showElement).toHaveBeenCalledWith(newdiv, "60px");
+    });
+    it("should increase add-button's data-count attribute by 1", function(){
+      expect($("#add-button").data("count")).toEqual(0);
+      gen.toggleNew();
+      expect($("#add-button").data("count")).toEqual(1);
+    });
+    it("should only call showElement if count % 2 == 0", function(){
+      var addbutton = $("#add-button");
+      spyOn(gen, "showElement");
+      gen.toggleNew();
+      expect(gen.showElement).toHaveBeenCalled();
+      expect(addbutton.data("count")).toEqual(1);
+      gen.toggleNew();
+      expect(gen.showElement.calls.count()).toEqual(1);
+    });
+    it("should call hideElement when count % 2 != 0", function(){
+      var addbutton = $("#add-button");
+      spyOn(gen, "hideElement");
+      gen.toggleNew();
+      expect(gen.hideElement).not.toHaveBeenCalled();
+      gen.toggleNew();
+      expect(gen.hideElement).toHaveBeenCalled();
+      expect(gen.hideElement).toHaveBeenCalledWith($("#new-div").get(0));
+    });
+    it("should add class 'cancel-to-add' to addbutton and remove 'add-to-cancel'", function(){
+      var addbutton = $("#add-button");
+      addbutton.data("count", 1);
+      gen.toggleNew();
+      expect(addbutton).toHaveClass("cancel-to-add");
+      expect(addbutton).not.toHaveClass("add-to-cancel");
     });
   });
 });

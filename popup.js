@@ -2,9 +2,15 @@ var listGenerator = {
   
   userItems : [],
 
+  baseURLs : {
+    google : "https://www.google.com/search?q=",
+    youtube : "https://www.youtube.com/results?search_query="
+  },
+
   buildLink : function(query){
     query = encodeURIComponent(query);
-    var baseURL = "https://www.google.com/search?q=";
+    site = $("#site-choice").data("choice");
+    var baseURL = listGenerator.baseURLs[site];
     return baseURL + query;
   },
 
@@ -56,6 +62,11 @@ var listGenerator = {
 
   addItem : function(item){
     if (item.length > 0){
+      link = listGenerator.buildLink(item)
+      // obj = {
+      //   text: item,
+      //   url: link
+      // }
       listGenerator.userItems.push(item);
       //add only the new item to DOM
       listGenerator.makeElements([item]);
@@ -66,7 +77,6 @@ var listGenerator = {
   },
 
   hideElement : function(element){
-    // document.getElementById("item-input").value = '';
     element.style.height = "0px";
   },
 
@@ -84,9 +94,10 @@ var listGenerator = {
   initAll : function(){
     this.getItems();
     document.getElementById("add-button").addEventListener("click", function(){
-      listGenerator.showElement(document.getElementById("new-div"), "60px");
-      $("#new-div").addClass("fadeInDown");
-      $("#add-button").addClass("add-to-cancel");
+      // listGenerator.showElement(document.getElementById("new-div"), "60px");
+      // $("#new-div").addClass("fadeInDown");
+      // $("#add-button").addClass("add-to-cancel");
+      listGenerator.toggleNew();
     });
     document.getElementById("submitItem").addEventListener("click", function(){
       listGenerator.addItem(document.getElementById("item-input").value);
@@ -104,6 +115,22 @@ var listGenerator = {
       var choice = $(this).data("site");
       listGenerator.chooseSite(choice);
     });
+  },
+
+  toggleNew : function(){
+    var newdiv = $("#new-div");
+    var addbutton = $("#add-button");
+    var count = addbutton.data("count");
+    if (count % 2 == 0){
+      this.showElement(newdiv.get(0), "60px");
+      addbutton.removeClass("cancel-to-add");
+      addbutton.addClass("add-to-cancel");
+    } else {
+      this.hideElement(newdiv.get(0));
+      addbutton.removeClass("cancel-to-add");
+      addbutton.addClass("cancel-to-add");
+    }
+    addbutton.data("count", count + 1)
   }
 };
 

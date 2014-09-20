@@ -14,11 +14,37 @@
   -webkit-animation: bounceOutLeft 1s 1;
 }
 
-
-@-webkit-keyframes fadeInDown {
+@-webkit-keyframes add-to-cancel {
   0% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  50% {
     opacity: 0;
-    transform: translate3d(0, -100%, 0);
+    transform: rotate(720deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(45deg);
+  }
+}
+
+.add-to-cancel {
+  -webkit-animation: add-to-cancel 1s 1;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes cancel-to-add {
+  0% {
+    opacity: 1;
+    transform: rotate(45deg);
+  }
+
+  50% {
+    opacity: 0;
+    transform: rotate(720deg);
   }
 
   100% {
@@ -27,6 +53,7 @@
   }
 }
 
-.fadeInDown {
-  -webkit-animation: fadeInDown 0.6s 1;
+.cancel-to-add {
+  -webkit-animation: cancel-to-add 1s 1;
+  -webkit-animation-fill-mode: forwards;
 }
