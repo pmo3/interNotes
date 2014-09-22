@@ -1,13 +1,9 @@
 describe("ListItem", function(){
   var listItem;
 
-  beforeEach(function(){
-    listItem = new ListItem("foo", "google");
-  });
-
   describe("buildURL", function(){
     it("should build a well-formed link to given site", function(){
-      expect(listItem.site).toEqual("google");
+      listItem = new ListItem("foo", "google");
       listItem.buildURL();
       expect(listItem.url).toEqual("https://www.google.com/search?q=foo");
       listItem = new ListItem("bar", "youtube");
