@@ -101,6 +101,7 @@ var UIGen = {
     });
     document.getElementById("submitItem").addEventListener("click", function(){
       UIGen.addItem(document.getElementById("item-input").value);
+      UIGen.toggleNew();
     });
     document.getElementById("item-input").addEventListener("keypress", function(e){
       var key = e.which || e.keyCode;
