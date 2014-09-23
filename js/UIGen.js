@@ -62,7 +62,7 @@ var UIGen = {
     var addbutton = $("#add-button");
     var count = addbutton.data("count");
     if (count % 2 == 0){
-      this.showElement(newdiv.get(0), "60px");
+      this.showElement(newdiv.get(0), "90px");
       addbutton.removeClass("cancel-to-add");
       addbutton.addClass("add-to-cancel");
     } else {
@@ -74,10 +74,15 @@ var UIGen = {
   },
 
   deleteItem : function(item){
+    //TODO: remove border from ul if no more items
     var key = item.ID;
     var li = $("#"+key).get(0);
     li.parentNode.removeChild(li);
     delete this.userItems[key];
+    // remove ul so border doesn't show up in window
+    if (Object.keys(this.userItems).length === 0){
+      $("#list").remove();
+    }
     this.saveChanges();
   },
 
@@ -94,9 +99,6 @@ var UIGen = {
   initAll : function(){
     this.getItems();
     document.getElementById("add-button").addEventListener("click", function(){
-      // listGenerator.showElement(document.getElementById("new-div"), "60px");
-      // $("#new-div").addClass("fadeInDown");
-      // $("#add-button").addClass("add-to-cancel");
       UIGen.toggleNew();
     });
     document.getElementById("submitItem").addEventListener("click", function(){

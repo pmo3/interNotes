@@ -1,4 +1,4 @@
-lookuplinks
+InterNotes
 ===========
 
-Keep an easily accessible list of items to look up later, right in your chrome toolbar
+A Chrome Extension to store search terms or links for later use. 

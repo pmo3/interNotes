@@ -120,7 +120,7 @@ describe("listGen", function(){
       var newdiv = document.getElementById("new-div");
       spyOn(gen, "showElement");
       gen.toggleNew();
-      expect(gen.showElement).toHaveBeenCalledWith(newdiv, "60px");
+      expect(gen.showElement).toHaveBeenCalledWith(newdiv, "90px");
     });
     it("should increase add-button's data-count attribute by 1", function(){
       expect($("#add-button").data("count")).toEqual(0);
@@ -166,6 +166,16 @@ describe("listGen", function(){
       expect($("#"+ID)).toBeInDOM();
       gen.deleteItem(gen.userItems[ID]);
       expect($("#"+ID)).not.toBeInDOM();
+    });
+    it("should remove the ul from the DOM if there are no more li elements after deletion", function(){
+      expect($("#list")).toBeInDOM();
+      gen.deleteItem(gen.userItems[ID]);
+      expect($("#list")).not.toBeInDOM();
+      gen.addItem("foo");
+      ID = Object.keys(gen.userItems)[0];
+      gen.addItem("bar");
+      gen.deleteItem(gen.userItems[ID]);
+      expect($("#list")).toBeInDOM();
     });
   });
 });
