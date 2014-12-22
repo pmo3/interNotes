@@ -1,35 +1,111 @@
 <!doctype html>
 <html>
   <head>
-    <title>LookUp List</title>
+    <title>InterNotes</title>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href="less/styles.css" rel="stylesheet" type="text/css">
+    <script type="application">
+        @-webkit-keyframes disapear{
+          
+          0% {
+            /* Sets the initial height to the measured height of the element */
+            height: {{height}};
+          }
+          
+          30% {
+            
+            -webkit-transform: translateX(-5%);
+            transform: translateX(-5%);
+          }
+          
+          60% {
+            -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+            
+            /* Makes sur the height and bottom margin stay constant
+               till this point in the animation */
+            height: {{height}};
+            margin-bottom: 1em;
+          }
+          
+          100% {
+            
+            /* Keeps the element out of the screen. If it's not there,
+             * the element comes back to its original position
+             */
+            -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+            
+            /* Makes the blank space collapse */
+            height: 0;
+            margin-bottom: 0;
+          }
+        } 
+
+
+          @keyframes disapear{
+          
+          0% {
+            /* Sets the initial height to the measured height of the element */
+            height: {{height}};
+          }
+          
+          30% {
+            
+            -webkit-transform: translateX(-5%);
+            transform: translateX(-5%);
+          }
+          
+          60% {
+            -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+            
+            /* Makes sur the height and bottom margin stay constant
+               till this point in the animation */
+            height: {{height}};
+            margin-bottom: 1em;
+          }
+          
+          100% {
+            
+            /* Keeps the element out of the screen. If it's not there,
+             * the element comes back to its original position
+             */
+            -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+        }
+    </script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/listItem.js"></script>
     <script src="js/UIGen.js"></script>
+
   </head>
   <body>
     <div class="header">
-      <p>My Lookup List</p>
+      <p>InterNotes</p>
       <i id="add-button" data-count ="0" class="fa fa-plus"></i>
     </div>
-    <div class="new-item" id="new-div">
-      <div class="new-input">
-        <span id="site-choice" data-choice="google"><i id="site-icon" class="fa fa-google">&nbsp;</i><i class="fa fa-angle-down"></i></span>
-        <input name="newItem" id="item-input"/>
-      </div>
-      <button type="button" class="button" id="submitItem">Add</button>
-    </div>
-      <div class="arrow_box">
-        <ul class="sites-list">
-          <li data-site="google" class="site"><i class="fa fa-google">&nbsp;&nbsp;Google</i></li>
-          <li data-site="youtube" class="site"><i class="fa fa-youtube">&nbsp;YouTube</i></li>
+    <div class="new-item clearfix" id="new-div">
+      <div class="menu new-input">
+        <ul class="clearfix">
+            <li id="site-choice" data-choice="google">
+                <i id="site-icon" class="fa fa-google"></i>
+                <i class="fa fa-angle-down"></i>
+                <ul class="sub-menu" id="sub-menu">
+                <li><i class="fa fa-google active">&nbsp;Google</i></li>
+                    <li><i class="fa fa-youtube">&nbsp;YouTube</i></li>
+                </ul>
+            </li>
+            <li><input name="newItem" id="item-input"></li>
         </ul>
-      </div>
-    <!-- </div> -->
-    <div class="main">
+        <div style="clear:both"></div>
     </div>
+      <div class="button" id="submitItem">Add</div>
+    </div>
+    <div style="clear:both"></div>
+    <!-- </div> -->
+    <div class="main"></div>
   </body>
 </html>
 

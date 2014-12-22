@@ -8,24 +8,35 @@ body {
   overflow-x: hidden;
   margin: 20px;
   background-color: #f5f5f5;
-  color: #fff;
+  color: rgba(0, 0, 0, 0.6);
   font-family: "Roboto", sans-serif;
+  font-size: 12px;
 }
 
 .header {
   text-align: center;
-  background: @brand-primary;
+  background: @brand-secondary;
   margin: -20px;
   margin-bottom: 20px;
   height: 35px;
   position: relative;
+  color: @font-color-light;
+  box-shadow: 0px 2px 3px @brand-secondary-600;
+  font-size: 16px;
 
   p {
-    padding: 5px;
+    position: relative;
+    left: 10px;
+    font-weight: bold;
+  }
+
+  p, i {
+    line-height: 35px;
+    display: inline;
   }
 }
 
-ul {
+.main ul {
   list-style: none;
   border: 1px solid #1b1919;
   padding: 0;
@@ -38,19 +49,20 @@ ul {
   }
 }
 
-li {
+.main li {
   padding-bottom: 5px;
   padding-top: 5px;
   border-bottom: 1px solid #ccc;
   position: relative;
   z-index: 1;
+  line-height: 14px;
 
   &:last-child {
     border-bottom: none;
   }
 }
 
-li:after {
+.main li:after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -58,178 +70,162 @@ li:after {
   left: 0;
   width: 0px;
   height: auto;
-  background: @brand-100;
+  background: @brand-secondary-100;
   z-index: -1;
   transition: width 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
-li:hover:after {
+.main li:hover:after {
   width: 100%;
 }
 
-li:hover {
-  a {
-    // color: @brand-secondary;
-  }
+.main li:hover {
   span i {
     margin-right: 20px;
     opacity: 1.0;
   }
 }
 
-li span i {
+.main li span i {
   position: absolute;
-  top: 9px;
   right: 0;
   transition: margin-right 0.7s, opacity 0.7s;
   opacity: 0;
-  color: @brand-secondary;
+  color: @font-color;
   cursor: pointer;
 }
 
 #add-button {
-  position: absolute;
-  right: 20px;
-  top: 10px;
+  float: right;
+  clear: both;
+  padding-right: 10px;
   transition: color 0.5s;
   &:hover {
-    color: @brand-secondary-300;
+    color: #000;
   }
 }
-
-.button {
-  -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
-  box-shadow:inset 0px 1px 0px 0px #fce2c1;
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #e54e1e) );
-  background-color:#ffc477;
-  border-radius: 2px;
-  text-indent:0;
-  border:1px solid @brand-secondary;
-  color:#ffffff;
-  font-size:15px;
-  height:25px;
-  width:25px;
-  text-decoration:none;
-  text-align:center;
-  text-shadow:1px 1px 0px #cc9f52;
-  position: absolute;
-  top: 5px;
-  right: 20px;
-}
-.button:hover {
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff5722), color-stop(1, #ffc477) );
-  background-color:#ff5722;
-}
-/* This button was generated using CSSButtonGenerator.com */
 
 .new-item {
-  height: 0;
-  overflow: hidden;
+  // height: 60px;
+  // overflow: hidden;
   position: relative;
-  input {
-    width: 99%;
-  }
   -webkit-transition: all .8s ease 0s;
   transition: all .8s ease 0s;
 }
 
-#submitItem {
-  position: absolute;
-  top: 35px;
-  right: 0px;
-  width: auto;
+.clearfix:after {
+    display:block;
+    clear:both;
 }
 
-#select {
-  font-family: sans-serif, "FontAwesome";
-  width: 80px;
-  position: absolute;
-  top: 25px;
-  left: 0;
-}
-
-.new-input {
-  display: inline;
-  position: relative;
-  top: 5px;
-  border: 1px solid #ccc;
-  background: #fff;
-}
-
-.new-input input {
-  border: none;
+#site-choice {
+  border: 1px solid @dividers;
   padding: 0;
-  width: 325px;
-  height: 20px;
-  position: relative;
-  top: -3px;
+  margin-top: 1px;
 }
 
-.new-input span {
-  color: @hint-text;
-}
-
-.arrow_box {
-  z-index: 2;
-  display: none;
-  position: absolute;
-  background: @brand-secondary-100;
-  border: 2px solid @brand-secondary;
-  color: @font-color;
-  width: 100px;
-  top: 90px;
-  font-size: 12px;
-  padding: 4px;
-}
-.arrow_box:after, .arrow_box:before {
-  bottom: 100%;
-  left: 20%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-
-.arrow_box:after {
-  border-color: rgba(136, 183, 213, 0);
-  border-bottom-color: @brand-secondary-100;
-  border-width: 10px;
-  margin-left: -10px;
-}
-.arrow_box:before {
-  border-color: rgba(194, 225, 245, 0);
-  border-bottom-color: @brand-secondary;
-  border-width: 13px;
-  margin-left: -13px;
-}
-
-.sites-list {
-  border: none;
+.menu ul {
+  padding: 0;
+  margin: 0;
 
   li {
-    border-bottom: none;
-    padding: 2px;
     cursor: pointer;
+    float: left;
+    display: inline-block;
+    position: relative;
+    font-size: 19px;
+
+    &:first-child {
+      border-right: none;
+    }
+
+    &:nth-child(2) {
+      border-left: none;
+    }
+
+    i {
+      padding: 4px 0 0 0;
+    }
+
+    input {
+      padding: 0;
+      width: 322px;
+      line-height: 25px;
+      font-size: 16px;
+      border: 1px solid @dividers;
+    }
   }
 }
 
-.new-input span i {
-  .transition-length(0.5s);
+.menu li:hover .sub-menu {
+    z-index:1;
+    opacity:1;
+}
+ 
+.sub-menu {
+    width:160%;
+    padding:0px;
+    position:absolute;
+    top:100%;
+    left:0px;
+    z-index:-1;
+    opacity:0;
+    transition:opacity linear 0.15s;
+    }
+ 
+.sub-menu li {
+    display:block;
+    font-size:12px;
+    background: #f5f5f5;
+    width: 150px;
+    border: 1px solid @dividers !important;
+    .transition-length(0.5s);
+  
+    &:hover {
+      color: @brand-primary;
+    }
+}
+
+.active:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    width: 7px;
+    height: auto;
+    background: @brand-secondary-100;
+}
+
+.button {
+  border: 0 none;
+  border-radius: 2px 2px 2px 2px;
+  background: @brand-secondary-300;
+  color: @font-color-light;
   cursor: pointer;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 20px;
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 3px 10px;
+  text-transform: none;
+  transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  width: 16.795%;
+  float: right;
+  text-align: center;
 }
 
-.new-input span:hover {
-  color: @brand-primary;
+.button:hover {
+  background: none repeat scroll 0 0 @brand-secondary-600;
+  color: #FFFFFF;
 }
 
-.container-box {
-  display: none;
-  // height: 0px;
-  // overflow:hidden;
-  position: absolute;
-  top: 85px;
-  z-index: 2;
-  .transition-length(0.2s);
+.removed {
+  
+  -webkit-animation: disapear 1s;
+  animation: disapear 1s;
 }

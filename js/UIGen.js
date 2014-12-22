@@ -1,5 +1,7 @@
 var UIGen = {
   userItems : {},
+  keyframesTemplate : document.querySelector('[type^=application]').textContent,
+  replacementPattern : /\{\{height\}\}/g,
 
   makeElement : function(item){
     if (document.getElementById("list") == null){
@@ -30,7 +32,7 @@ var UIGen = {
       this.userItems[item.ID] = item;
       this.makeElement(item);
       this.saveChanges();
-      this.hideElement($("#new-div")[0]);
+      // this.hideElement($("#new-div")[0]);
       $("#item-input")[0].value = '';
     }
   },
@@ -62,11 +64,11 @@ var UIGen = {
     var addbutton = $("#add-button");
     var count = addbutton.data("count");
     if (count % 2 == 0){
-      this.showElement(newdiv.get(0), "90px");
+      this.showElement(newdiv.get(0), "65px");
       addbutton.removeClass("cancel-to-add");
       addbutton.addClass("add-to-cancel");
     } else {
-      this.hideElement(newdiv.get(0));
+      // this.hideElement(newdiv.get(0));
       addbutton.removeClass("cancel-to-add");
       addbutton.addClass("cancel-to-add");
     }
@@ -76,20 +78,17 @@ var UIGen = {
   deleteItem : function(item){
     //TODO: remove border from ul if no more items
     var key = item.ID;
-    var li = $("#"+key).get(0);
-    li.parentNode.removeChild(li);
+    console.log(item);
+    var li = $("#"+key);
+    UIGen.insertKeyFrames(li.height());
+    li.addClass("removed");
     delete this.userItems[key];
-    // remove ul so border doesn't show up in window
-    if (Object.keys(this.userItems).length === 0){
-      $("#list").remove();
-    }
     this.saveChanges();
   },
 
   getItems : function(){
     chrome.storage.sync.get("items", function(object){
       items = object.items;
-      console.log(items);
       for (var item in items){
         UIGen.makeElement(items[item]);
       }
@@ -119,6 +118,22 @@ var UIGen = {
       var choice = $(this).data("site");
       UIGen.chooseSite(choice);
     });
+  },
+
+  insertKeyFrames: function(height){
+    var styleElement = document.createElement('style');
+    styleElement.textContent = UIGen.keyframesTemplate.replace(UIGen.replacementPattern, height + 'px');
+    document.head.appendChild(styleElement);
+  },
+
+  removeElement : function(event){
+    if (event.animationName === 'disapear'){
+      event.target.parentNode.removeChild(event.target);
+      // remove ul so border doesn't show up in window
+      if (Object.keys(UIGen.userItems).length === 0){
+        $("#list").remove();
+      }
+    }
   }
 };
 
@@ -126,3 +141,6 @@ var UIGen = {
 document.addEventListener("DOMContentLoaded", function(){
   UIGen.initAll();
 });
+
+document.addEventListener('animationEnd', UIGen.removeElement);
+document.addEventListener('webkitAnimationEnd', UIGen.removeElement);

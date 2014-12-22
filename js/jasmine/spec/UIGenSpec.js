@@ -23,7 +23,7 @@ describe("listGen", function(){
       }
     });
     gen = UIGen;
-    $('<div id="everything"><div class="header"><p>My Lookup List</p><button type="button" class="addButton" id="add-button" data-count="0">+</button></div><div class="new-item" id="new-div"><input type="text" id="item-input" value="bonobos"><button type="button" class="addButton" id="submitItem">Add</button></div><div class="main"></div></div>').appendTo('body');
+    $('<div id="everything"><div class="header"><p>InterNotes</p><button type="button" class="addButton" id="add-button" data-count="0">+</button></div><div class="new-item" id="new-div"><input type="text" id="item-input" value="bonobos"><button type="button" class="addButton" id="submitItem">Add</button></div><div class="main"></div></div>').appendTo('body');
     $("<div class='all'><span id='site-choice' data-choice='google'><i id='site-icon' class='fa fa-google'></i><i class='fa fa-angle-down'></i></span><ul class='site-choice'><li data-site='google'><i></i></li><li data-site='youtube'><i></i></li></ul></div>").appendTo('body');
     
     // chrome specific objects seem to cause errors (probably permissions-related)
@@ -50,11 +50,11 @@ describe("listGen", function(){
   describe("makeElement", function(){
     it("should add a ul element to the DOM is one doesn't already exist", function(){
       gen.makeElement(foo);
-      expect($("#list")[0]).toBeInDOM();
+      expect(("#list")).toBeInDOM();
     });
     it("should add an li element to DOM", function(){
       gen.makeElement(foo);
-      expect($("#"+foo.ID)[0]).toBeInDOM();
+      expect($("#"+foo.ID)).toBeInDOM();
     });
     it("should add click event listeners", function(){
       spyOn(gen, "addClickListeners");
@@ -120,7 +120,7 @@ describe("listGen", function(){
       var newdiv = document.getElementById("new-div");
       spyOn(gen, "showElement");
       gen.toggleNew();
-      expect(gen.showElement).toHaveBeenCalledWith(newdiv, "90px");
+      expect(gen.showElement).toHaveBeenCalledWith(newdiv, "65px");
     });
     it("should increase add-button's data-count attribute by 1", function(){
       expect($("#add-button").data("count")).toEqual(0);
