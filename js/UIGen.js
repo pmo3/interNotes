@@ -59,26 +59,8 @@ var UIGen = {
     $("#site-icon").addClass("fa-"+site);
   },
 
-  toggleNew : function(){
-    var newdiv = $("#new-div");
-    var addbutton = $("#add-button");
-    var count = addbutton.data("count");
-    if (count % 2 == 0){
-      this.showElement(newdiv.get(0), "65px");
-      addbutton.removeClass("cancel-to-add");
-      addbutton.addClass("add-to-cancel");
-    } else {
-      // this.hideElement(newdiv.get(0));
-      addbutton.removeClass("cancel-to-add");
-      addbutton.addClass("cancel-to-add");
-    }
-    addbutton.data("count", count + 1)
-  },
-
   deleteItem : function(item){
-    //TODO: remove border from ul if no more items
     var key = item.ID;
-    console.log(item);
     var li = $("#"+key);
     UIGen.insertKeyFrames(li.height());
     li.addClass("removed");
@@ -97,18 +79,13 @@ var UIGen = {
 
   initAll : function(){
     this.getItems();
-    document.getElementById("add-button").addEventListener("click", function(){
-      UIGen.toggleNew();
-    });
-    document.getElementById("submitItem").addEventListener("click", function(){
+    document.getElementById("add-icon").addEventListener("click", function(){
       UIGen.addItem(document.getElementById("item-input").value);
-      UIGen.toggleNew();
     });
     document.getElementById("item-input").addEventListener("keypress", function(e){
       var key = e.which || e.keyCode;
       if (key == 13){
         UIGen.addItem(document.getElementById("item-input").value);
-        UIGen.toggleNew();
       }
     });
     $("#site-choice").click(function(){
@@ -144,3 +121,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
 document.addEventListener('animationEnd', UIGen.removeElement);
 document.addEventListener('webkitAnimationEnd', UIGen.removeElement);
+$(document).ready(function(){
+  $('#item-input').keyup(function(){
+    if ( $(this).val() == ""){
+      $('#add-icon').css('color', '#D8D8D8');
+    }else{
+      $('#add-icon').css('color', '#26a69a');
+    }
+  });
+})

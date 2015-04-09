@@ -19,20 +19,14 @@ body {
   margin: -20px;
   margin-bottom: 20px;
   height: 35px;
+  line-height: 35px;
   position: relative;
   color: @font-color-light;
   box-shadow: 0px 2px 3px @brand-secondary-600;
   font-size: 16px;
 
   p {
-    position: relative;
-    left: 10px;
     font-weight: bold;
-  }
-
-  p, i {
-    line-height: 35px;
-    display: inline;
   }
 }
 
@@ -89,7 +83,7 @@ body {
 .main li span i {
   position: absolute;
   right: 0;
-  transition: margin-right 0.7s, opacity 0.7s;
+  transition: margin-right 0.4s, opacity 0.4s;
   opacity: 0;
   color: @font-color;
   cursor: pointer;
@@ -105,9 +99,15 @@ body {
   }
 }
 
+#add-icon {
+  position: absolute;
+  right: 5px;
+  color: #D8D8D8;
+  transition: color 0.3s;
+  z-index: 10;
+}
+
 .new-item {
-  // height: 60px;
-  // overflow: hidden;
   position: relative;
   -webkit-transition: all .8s ease 0s;
   transition: all .8s ease 0s;
@@ -119,9 +119,12 @@ body {
 }
 
 #site-choice {
-  border: 1px solid @dividers;
+  border-left: 1px solid @dividers;
+  border-top: 1px solid @dividers;
+  border-bottom: 1px solid @dividers;
   padding: 0;
-  margin-top: 1px;
+  width: 30px;
+  text-align: center;
 }
 
 .menu ul {
@@ -129,7 +132,6 @@ body {
   margin: 0;
 
   li {
-    cursor: pointer;
     float: left;
     display: inline-block;
     position: relative;
@@ -148,10 +150,9 @@ body {
     }
 
     input {
-      padding: 0;
-      width: 322px;
+      padding: 0 0 0 3px;
+      width: 319px;
       line-height: 25px;
-      font-size: 16px;
       border: 1px solid @dividers;
     }
   }
@@ -186,46 +187,7 @@ body {
     }
 }
 
-.active:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    right: 0;
-    width: 7px;
-    height: auto;
-    background: @brand-secondary-100;
-}
-
-.button {
-  border: 0 none;
-  border-radius: 2px 2px 2px 2px;
-  background: @brand-secondary-300;
-  color: @font-color-light;
-  cursor: pointer;
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 20px;
-  margin-bottom: 0;
-  margin-top: 10px;
-  padding: 3px 10px;
-  text-transform: none;
-  transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -webkit-transition: all 0.3s ease 0s;
-  width: 16.795%;
-  float: right;
-  text-align: center;
-}
-
-.button:hover {
-  background: none repeat scroll 0 0 @brand-secondary-600;
-  color: #FFFFFF;
-}
-
 .removed {
-  
-  -webkit-animation: disapear 1s;
-  animation: disapear 1s;
+  -webkit-animation: disapear 0.6s;
+  animation: disapear 0.6s;
 }

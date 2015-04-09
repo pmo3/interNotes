@@ -115,43 +115,6 @@ describe("listGen", function(){
       expect($("#site-icon")).not.toHaveClass("fa-google");
     });
   });
-  describe("toggleNew", function(){
-    it("should show input when clicked for the first time", function(){
-      var newdiv = document.getElementById("new-div");
-      spyOn(gen, "showElement");
-      gen.toggleNew();
-      expect(gen.showElement).toHaveBeenCalledWith(newdiv, "65px");
-    });
-    it("should increase add-button's data-count attribute by 1", function(){
-      expect($("#add-button").data("count")).toEqual(0);
-      gen.toggleNew();
-      expect($("#add-button").data("count")).toEqual(1);
-    });
-    it("should only call showElement if count % 2 == 0", function(){
-      var addbutton = $("#add-button");
-      spyOn(gen, "showElement");
-      gen.toggleNew();
-      expect(gen.showElement).toHaveBeenCalled();
-      expect(addbutton.data("count")).toEqual(1);
-      gen.toggleNew();
-      expect(gen.showElement.calls.count()).toEqual(1);
-    });
-    it("should call hideElement when count % 2 != 0", function(){
-      var addbutton = $("#add-button");
-      spyOn(gen, "hideElement");
-      gen.toggleNew();
-      expect(gen.hideElement).not.toHaveBeenCalled();
-      gen.toggleNew();
-      expect(gen.hideElement).toHaveBeenCalledWith($("#new-div").get(0));
-    });
-    it("should add class 'cancel-to-add' to addbutton and remove 'add-to-cancel'", function(){
-      var addbutton = $("#add-button");
-      addbutton.data("count", 1);
-      gen.toggleNew();
-      expect(addbutton).toHaveClass("cancel-to-add");
-      expect(addbutton).not.toHaveClass("add-to-cancel");
-    });
-  });
   describe("deleteItem", function(){
     //TODO: also hacky, same thing;
     beforeEach(function(){
@@ -161,21 +124,6 @@ describe("listGen", function(){
     it("should remove the item from userItems", function(){
       gen.deleteItem(gen.userItems[ID]);
       expect(gen.userItems[ID]).not.toBeDefined();
-    });
-    it("should remove element from the DOM", function(){
-      expect($("#"+ID)).toBeInDOM();
-      gen.deleteItem(gen.userItems[ID]);
-      expect($("#"+ID)).not.toBeInDOM();
-    });
-    it("should remove the ul from the DOM if there are no more li elements after deletion", function(){
-      expect($("#list")).toBeInDOM();
-      gen.deleteItem(gen.userItems[ID]);
-      expect($("#list")).not.toBeInDOM();
-      gen.addItem("foo");
-      ID = Object.keys(gen.userItems)[0];
-      gen.addItem("bar");
-      gen.deleteItem(gen.userItems[ID]);
-      expect($("#list")).toBeInDOM();
     });
   });
 });
