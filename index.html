@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InterNotes</title>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="gh_pages_less/styles.css" rel="stylesheet" type="text/css" />
+    <script type="application">
+        @-webkit-keyframes disapear{
+          
+          0% {
+            /* Sets the initial height to the measured height of the element */
+            height: {{height}};
+          }
+          
+          30% {
+            
+            -webkit-transform: translateX(-5%);
+            transform: translateX(-5%);
+          }
+          
+          60% {
+            -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+            
+            /* Makes sur the height and bottom margin stay constant
+               till this point in the animation */
+            height: {{height}};
+            margin-bottom: 1em;
+          }
+          
+          100% {
+            
+            /* Keeps the element out of the screen. If it's not there,
+             * the element comes back to its original position
+             */
+            -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+            
+            /* Makes the blank space collapse */
+            height: 0;
+            margin-bottom: 0;
+          }
+        } 
+
+
+          @keyframes disapear{
+          
+          0% {
+            /* Sets the initial height to the measured height of the element */
+            height: {{height}};
+          }
+          
+          30% {
+            
+            -webkit-transform: translateX(-5%);
+            transform: translateX(-5%);
+          }
+          
+          60% {
+            -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+            
+            /* Makes sur the height and bottom margin stay constant
+               till this point in the animation */
+            height: {{height}};
+            margin-bottom: 1em;
+          }
+          
+          100% {
+            
+            /* Keeps the element out of the screen. If it's not there,
+             * the element comes back to its original position
+             */
+            -webkit-transform: translateX(200%);
+            transform: translateX(200%);
+        }
+    </script>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="gh_pages_js/listItem.js"></script>
+    <script src="gh_pages_js/UIGen.js"></script>
+  </head>
+  <body>
+    <header>
+        <h1>InterNotes</h1>
+        <h3>A simple chrome extension to store search terms for later use</h3>
+    </header>
+    <section class="content">
+        <div class="description">
+            <p>InterNotes was made for those of us who wish to break the habit of tab hoarding or (GASP!) turn off the computer every now and then.</p>
+            <p>Built for what I call 'temporary bookmarks', InterNotes is meant to be a place where you can store a list of search terms or webpages that you're totally gonna check out when you get around to it. For sure.</p>
+            <p>So check it out on the chrome store, or <a href="https://github.com/obiedman/InterNotes">view the source</a> on GitHub.</p>
+        </div>
+        <div class="demo">
+            <div class="header">
+              <p>InterNotes</p>
+            </div>
+              <div class="menu new-input">
+                <ul class="clearfix">
+                  <li id="input-input"><input name="newItem" id="item-input" placeholder="Try it out!"></li>
+                  <li><i id="add-icon" class="fa fa-plus-square"></i></li>
+                </ul>
+                <div style="clear:both"></div>
+              </div>
+            <div style="clear:both"></div>
+            <div class="main">
+            </div>
+        </div>
+    </section>
+  </body>
+</html>
