@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Lookup List",
-  "description": "Keep an easily accessible list of items you want to look up later on",
+  "name": "interNotes",
+  "description": "A simple chrome extension to store search terms for later use",
   "version": "1.0",
 
   "permissions": [

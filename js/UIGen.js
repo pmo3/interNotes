@@ -72,7 +72,6 @@ var UIGen = {
       var items = object.items;
       for (var item in items){
         UIGen.addItem(items[item].txt);
-        // UIGen.makeElement(items[item]);
       }
     });
   },
