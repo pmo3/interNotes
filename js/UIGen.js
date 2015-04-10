@@ -32,7 +32,6 @@ var UIGen = {
       this.userItems[item.ID] = item;
       this.makeElement(item);
       this.saveChanges();
-      // this.hideElement($("#new-div")[0]);
       $("#item-input")[0].value = '';
     }
   },
@@ -70,9 +69,10 @@ var UIGen = {
 
   getItems : function(){
     chrome.storage.sync.get("items", function(object){
-      items = object.items;
+      var items = object.items;
       for (var item in items){
-        UIGen.makeElement(items[item]);
+        UIGen.addItem(items[item].txt);
+        // UIGen.makeElement(items[item]);
       }
     });
   },
@@ -104,6 +104,7 @@ var UIGen = {
   },
 
   removeElement : function(event){
+    console.log(Object.keys(UIGen.userItems).length);
     if (event.animationName === 'disapear'){
       event.target.parentNode.removeChild(event.target);
       // remove ul so border doesn't show up in window
