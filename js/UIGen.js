@@ -33,6 +33,7 @@ var UIGen = {
       this.makeElement(item);
       this.saveChanges();
       $("#item-input")[0].value = '';
+      chrome.browserAction.setBadgeText({text: Object.keys(UIGen.userItems).length.toString()});
     }
   },
 
@@ -78,6 +79,7 @@ var UIGen = {
 
   initAll : function(){
     this.getItems();
+    chrome.browserAction.setBadgeBackgroundColor({color: '#FF0000'});
     document.getElementById("add-icon").addEventListener("click", function(){
       UIGen.addItem(document.getElementById("item-input").value);
     });
@@ -110,6 +112,11 @@ var UIGen = {
       if (Object.keys(UIGen.userItems).length === 0){
         $("#list").remove();
       }
+    };
+    if (Object.keys(UIGen.userItems).length > 0) {
+      chrome.browserAction.setBadgeText({text: Object.keys(UIGen.userItems).length.toString()});
+    }else{
+      chrome.browserAction.setBadgeText({text: ''});
     }
   }
 };

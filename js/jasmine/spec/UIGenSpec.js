@@ -38,6 +38,11 @@ describe("listGen", function(){
             return;
           }
         }
+      },
+      browserAction: {
+        setBadgeText: function(){
+          return;
+        }
       }
     };
   });
@@ -50,11 +55,11 @@ describe("listGen", function(){
   describe("makeElement", function(){
     it("should add a ul element to the DOM is one doesn't already exist", function(){
       gen.makeElement(foo);
-      expect(("#list")).toBeInDOM();
+      expect($("#list")[0]).toBeInDOM();
     });
     it("should add an li element to DOM", function(){
       gen.makeElement(foo);
-      expect($("#"+foo.ID)).toBeInDOM();
+      expect($("#"+foo.ID)[0]).toBeInDOM();
     });
     it("should add click event listeners", function(){
       spyOn(gen, "addClickListeners");
@@ -66,6 +71,7 @@ describe("listGen", function(){
     it("should add the item to userItems object", function(){
       // TODO: this is hacky, solve later
       // Issue figuring out how to deal with randomly generated ID
+
       gen.addItem("foo");
       ID = Object.keys(gen.userItems)[0];
       expect(gen.userItems[ID]).toBeDefined();
