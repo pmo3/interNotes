@@ -106,7 +106,7 @@ var UIGen = {
 
   removeElement : function(event){
     console.log(Object.keys(UIGen.userItems).length);
-    if (event.animationName === 'disapear'){
+    if (event.animationName === 'disappear'){
       event.target.parentNode.removeChild(event.target);
       // remove ul so border doesn't show up in window
       if (Object.keys(UIGen.userItems).length === 0){

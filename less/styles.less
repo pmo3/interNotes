@@ -11,6 +11,7 @@ body {
   color: rgba(0, 0, 0, 0.6);
   font-family: "Roboto", sans-serif;
   font-size: 12px;
+  transition: height 2.2s;
 }
 
 .header {
@@ -56,6 +57,12 @@ body {
   &:last-child {
     border-bottom: none;
   }
+}
+
+.main li ul {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .main li:after {
@@ -160,6 +167,25 @@ body {
   }
 }
 
+.menu ul li ul {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.2s;
+  -transition: opacity 0.2s;
+  li {
+    width: 30px;
+    border-right: 1px solid @dividers !important;
+    border-top: 1px solid @dividers !important;
+  }
+}
+
+.menu ul li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
 .menu li:hover .sub-menu {
     z-index:1;
     opacity:1;
@@ -190,6 +216,6 @@ body {
 }
 
 .removed {
-  -webkit-animation: disapear 0.6s;
-  animation: disapear 0.6s;
+  -webkit-animation: disappear 0.6s;
+  animation: disappear 0.6s;
 }
