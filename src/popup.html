@@ -4,71 +4,71 @@
     <title>InterNotes</title>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href="less/styles.css" rel="stylesheet" type="text/css">
+    <link href="assets/stylesheets/styles.css" rel="stylesheet" type="text/css">
     <script type="application">
         @-webkit-keyframes disappear{
-          
+
           0% {
             /* Sets the initial height to the measured height of the element */
             height: {{height}};
           }
-          
+
           30% {
-            
+
             -webkit-transform: translateX(-5%);
             transform: translateX(-5%);
           }
-          
+
           60% {
             -webkit-transform: translateX(200%);
             transform: translateX(200%);
-            
+
             /* Makes sur the height and bottom margin stay constant
                till this point in the animation */
             height: {{height}};
             margin-bottom: 1em;
           }
-          
+
           100% {
-            
+
             /* Keeps the element out of the screen. If it's not there,
              * the element comes back to its original position
              */
             -webkit-transform: translateX(200%);
             transform: translateX(200%);
-            
+
             /* Makes the blank space collapse */
             height: 0;
             margin-bottom: 0;
           }
-        } 
+        }
 
 
           @keyframes disappear{
-          
+
           0% {
             /* Sets the initial height to the measured height of the element */
             height: {{height}};
           }
-          
+
           30% {
-            
+
             -webkit-transform: translateX(-5%);
             transform: translateX(-5%);
           }
-          
+
           60% {
             -webkit-transform: translateX(200%);
             transform: translateX(200%);
-            
+
             /* Makes sur the height and bottom margin stay constant
                till this point in the animation */
             height: {{height}};
             margin-bottom: 1em;
           }
-          
+
           100% {
-            
+
             /* Keeps the element out of the screen. If it's not there,
              * the element comes back to its original position
              */
@@ -101,4 +101,3 @@
     <div class="main"></div>
   </body>
 </html>
-
