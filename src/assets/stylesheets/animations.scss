@@ -1,4 +1,4 @@
-@-webkit-keyframes bounceOutLeft {
+@keyframes bounce-out-left {
   20% {
     opacity: 1;
     transform: translate3d(20px, 0, 0);
@@ -10,11 +10,11 @@
   }
 }
 
-.bounceOutLeft {
-  -webkit-animation: bounceOutLeft 1s 1;
+.bounce-out-left {
+  animation: bounce-out-left 1s 1;
 }
 
-@-webkit-keyframes add-to-cancel {
+@keyframes add-to-cancel {
   0% {
     opacity: 1;
     transform: rotate(0deg);
@@ -32,11 +32,11 @@
 }
 
 .add-to-cancel {
-  -webkit-animation: add-to-cancel 1s 1;
-  -webkit-animation-fill-mode: forwards;
+  animation: add-to-cancel 1s 1;
+  animation-fill-mode: forwards;
 }
 
-@-webkit-keyframes cancel-to-add {
+@keyframes cancel-to-add {
   0% {
     opacity: 1;
     transform: rotate(45deg);
@@ -54,6 +54,6 @@
 }
 
 .cancel-to-add {
-  -webkit-animation: cancel-to-add 1s 1;
-  -webkit-animation-fill-mode: forwards;
+  animation: cancel-to-add 1s 1;
+  animation-fill-mode: forwards;
 }

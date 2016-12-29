@@ -7,7 +7,7 @@ REQUIRED STUFF
 var gulp        = require('gulp');
 var sass        = require('gulp-sass');
 // var sourcemaps  = require('gulp-sourcemaps');
-// var notify      = require('gulp-notify');
+var notify      = require('gulp-notify');
 var prefix      = require('gulp-autoprefixer');
 var minifycss   = require('gulp-clean-css');
 var uglify      = require('gulp-uglify');
@@ -20,7 +20,7 @@ var pixrem      = require('gulp-pixrem');
 var eslint      = require('gulp-eslint');
 var del         = require('del');
 var cleanhtml   = require('gulp-cleanhtml');
-// var scsslint    = require('gulp-scss-lint');
+var scsslint    = require('gulp-scss-lint');
 
 /*
 
@@ -29,13 +29,15 @@ FILE PATHS
 */
 
 var srcDir = './src';
-var sassSrc = srcDir + 'assets/stylesheets/**/*.{sass,scss}';
-var sassFile = srcDir + '/assets/stylesheets/global.scss';
+var sassSrc = srcDir + '/assets/stylesheets/**/*.{sass,scss}';
+var sassFile = srcDir + '/assets/stylesheets/internotes.scss';
 var buildDir = './build'
 var cssDest = buildDir + '/assets/stylesheets/';
 var jsSrc = srcDir + '/js/**/*.js';
 var jsDest = buildDir + '/js';
 var jsDestFile = buildDir + "/internotes.js";
+var imgSrc = srcDir + '/assets/images/**/*.{jpg,jpeg,png}';
+var imgDest = buildDir + '/assets/images';
 /*
 
 ERROR HANDLING
@@ -58,28 +60,22 @@ STYLES
 ======
 */
 
-gulp.task('build:css', ['build:clean'], function() {
+gulp.task('build:css', ['build:clean', 'lint:scss'], function() {
 
-  // gulp.src(sassFile)
-  //
-  //   .pipe(sass({
-  //     compass: false,
-  //     bundleExec: true,
-  //     sourcemap: false,
-  //     style: 'compressed',
-  //     debugInfo: true,
-  //     lineNumbers: true,
-  //     errLogToConsole: true,
-  //     includePaths: [
-  //       srcDir + '/node_modules/',
-  //       'node_modules/',
-  //       // 'bower_components/',
-  //       // require('node-bourbon').includePaths
-  //     ],
-  //   }))
-  //
-  //   .on('error', handleError('styles'))
-  return gulp.src("src/assets/stylesheets/**/*.css")
+  return gulp.src(sassFile)
+    .pipe(sass({
+      compass: false,
+      bundleExec: true,
+      sourcemap: false,
+      style: 'compressed',
+      debugInfo: true,
+      lineNumbers: true,
+      errLogToConsole: true,
+      includePaths: [
+        'node_modules/',
+      ],
+    }))
+    .on('error', handleError('styles'))
     .pipe(prefix('last 3 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4')) // Adds browser prefixes (eg. -webkit, -moz, etc.)
     .pipe(pixrem())
     .pipe(minifycss({
@@ -123,13 +119,13 @@ gulp.task("build:clean", function() {
 
 // Copy files that don't require any build process
 gulp.task("build:copy", ["build:clean"], function() {
-  gulp.src(["src/images/*"]).
-    pipe(gulp.dest("build/images"));
-  return gulp.src("src/manifest.json").
-    pipe(gulp.dest("build"));
+  gulp.src([imgSrc]).
+    pipe(gulp.dest(imgDest));
+  return gulp.src(srcDir + "/manifest.json").
+    pipe(gulp.dest(buildDir));
 });
 
-gulp.task('lint', function() {
+gulp.task('lint:js', function() {
   return gulp.src(jsSrc)
   // .pipe(cache("linting"))
   .pipe(eslint())
@@ -138,7 +134,9 @@ gulp.task('lint', function() {
 });
 
 gulp.task('build:js', ["build:clean"], function() {
-  gulp.src([jsSrc])
+  gulp.src([srcDir + '/js/jquery-2.1.1.min.js'])
+  .pipe(gulp.dest(jsDest));
+  return gulp.src([jsSrc])
     .pipe(concat('internotes.js'))
     .pipe(uglify({preserveComments: false, compress: true, mangle: true}).on('error',function(e){console.log('\x07',e.message);return this.end();}))
     .pipe(header(banner, {pkg: pkg, currentDate: currentDate}))

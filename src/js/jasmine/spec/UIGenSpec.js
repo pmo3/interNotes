@@ -25,7 +25,7 @@ describe("listGen", function(){
     gen = UIGen;
     $('<div id="everything"><div class="header"><p>InterNotes</p><button type="button" class="addButton" id="add-button" data-count="0">+</button></div><div class="new-item" id="new-div"><input type="text" id="item-input" value="bonobos"><button type="button" class="addButton" id="submitItem">Add</button></div><div class="main"></div></div>').appendTo('body');
     $("<div class='all'><span id='site-choice' data-choice='google'><i id='site-icon' class='fa fa-google'></i><i class='fa fa-angle-down'></i></span><ul class='site-choice'><li data-site='google'><i></i></li><li data-site='youtube'><i></i></li></ul></div>").appendTo('body');
-    
+
     // chrome specific objects seem to cause errors (probably permissions-related)
     // so we'll stub that out entirely
     chrome = {

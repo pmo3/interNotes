@@ -1,0 +1,3 @@
+@mixin transition-length($length) {
+  transition: all $length ease 0s;
+}

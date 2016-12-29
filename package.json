@@ -27,6 +27,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-eslint": "^3.0.1",
     "gulp-header": "^1.8.8",
+    "gulp-notify": "^2.2.0",
     "gulp-pixrem": "^1.0.0",
     "gulp-prefix": "0.0.15",
     "gulp-sass": "^3.0.0",
