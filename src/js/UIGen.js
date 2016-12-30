@@ -1,6 +1,9 @@
+import $ from './jquery-2.1.1.min.js';
+import ListItem from './listItem.js';
+
 var UIGen = {
   userItems : {},
-  replacementPattern : /\{\{height\}\}/g,
+  chrome: chrome,
 
   makeElement : function(item){
     if (document.getElementById("list") == null){
@@ -15,7 +18,7 @@ var UIGen = {
   addClickListeners : function(item){
     var li = document.getElementById(item.ID);
     li.firstChild.addEventListener("click", function(){
-      chrome.tabs.create({"url" : item.url});
+      this.chrome.tabs.create({"url" : item.url});
     });
     var span = document.getElementById(item.ID+"-close");
     span.addEventListener("click", function(){
@@ -32,12 +35,12 @@ var UIGen = {
       this.makeElement(item);
       this.saveChanges();
       $("#item-input")[0].value = '';
-      chrome.browserAction.setBadgeText({text: Object.keys(UIGen.userItems).length.toString()});
+      this.chrome.browserAction.setBadgeText({text: Object.keys(UIGen.userItems).length.toString()});
     }
   },
 
   saveChanges : function(){
-    chrome.storage.sync.set({"items" : UIGen.userItems}, function(){
+    this.chrome.storage.sync.set({"items" : UIGen.userItems}, function(){
       console.log("Items saved");
     });
   },
@@ -78,7 +81,7 @@ var UIGen = {
   },
 
   getItems : function(){
-    chrome.storage.sync.get("items", function(object){
+    this.chrome.storage.sync.get("items", function(object){
       var items = object.items;
       for (var item in items){
         UIGen.addItem(items[item].txt);
@@ -88,7 +91,7 @@ var UIGen = {
 
   initAll : function(){
     this.getItems();
-    chrome.browserAction.setBadgeBackgroundColor({color: '#FF0000'});
+    this.chrome.browserAction.setBadgeBackgroundColor({color: '#FF0000'});
     $('#add-icon').click(function(){
       UIGen.addItem(document.getElementById("item-input").value);
     });
@@ -123,9 +126,9 @@ var UIGen = {
       }
     }
     if (Object.keys(UIGen.userItems).length > 0) {
-      chrome.browserAction.setBadgeText({text: Object.keys(UIGen.userItems).length.toString()});
+      this.chrome.browserAction.setBadgeText({text: Object.keys(UIGen.userItems).length.toString()});
     }else{
-      chrome.browserAction.setBadgeText({text: ''});
+      this.chrome.browserAction.setBadgeText({text: ''});
     }
   }
 };
@@ -145,4 +148,6 @@ $(document).ready(function(){
       $('#add-icon').css('color', '#26a69a');
     }
   });
-})
+});
+
+export default UIGen;

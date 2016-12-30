@@ -22,6 +22,10 @@ var del         = require('del');
 var cleanhtml   = require('gulp-cleanhtml');
 var scsslint    = require('gulp-scss-lint');
 var karma       = require('karma');
+var babelify    = require('babelify');
+var browserify  = require('browserify');
+var source      = require('vinyl-source-stream');
+var buffer      = require('vinyl-buffer');
 
 /*
 
@@ -134,16 +138,6 @@ gulp.task('lint:js', function() {
   .pipe(eslint.failOnError());
 });
 
-gulp.task('build:js', ['lint:js', 'build:clean'], function() {
-  gulp.src([srcDir + '/js/jquery-2.1.1.min.js'])
-  .pipe(gulp.dest(jsDest));
-  return gulp.src([jsSrc, '!' + srcDir + '/js/jasmine/**/*.js'])
-    .pipe(concat('internotes.js'))
-    .pipe(uglify({preserveComments: false, compress: true, mangle: true}).on('error',function(e){console.log('\x07',e.message);return this.end();}))
-    .pipe(header(banner, {pkg: pkg, currentDate: currentDate}))
-    .pipe(gulp.dest(jsDest));
-});
-
 // Copy and compress HTML files
 gulp.task("build:html", ["build:clean"], function() {
   return gulp.src(srcDir + "/**/*.html").
@@ -158,6 +152,39 @@ gulp.task("test:chrome", ['lint:js'], function(done) {
     configFile: __dirname + "/config/karma/karma.conf.js"
   };
   new karma.Server.start(opts, done);
+});
+
+// Build the browserify bundle including the app
+gulp.task("build:js", ["lint:js", "build:clean"], function(done) {
+  function basename(filePath) {
+    var components = filePath.split(/\//);
+    return components[components.length - 1];
+  }
+
+  function bundleEntry(entryFile) {
+    var bundle = browserify({
+      debug: true,
+      entries: entryFile
+    });
+
+    return bundle.
+      transform("babelify", { presets: ["es2015"] }).
+      bundle().
+      pipe(source(basename(entryFile))).
+      on("error", function(err) {
+        gutil.log(err);
+        this.emit("end");
+      })
+      .pipe(buffer())
+      .pipe(concat('internotes.js'))
+      .pipe(uglify({preserveComments: false, compress: true, mangle: true}).on('error',function(e){console.log('\x07',e.message);return this.end();}))
+      .pipe(header(banner, {pkg: pkg, currentDate: currentDate}))
+      .pipe(gulp.dest(jsDest));
+  }
+  gulp.src([srcDir + '/js/jquery-2.1.1.min.js'])
+  .pipe(gulp.dest(jsDest));
+
+  bundleEntry(srcDir + '/js/entry.js');
 });
 
 /*

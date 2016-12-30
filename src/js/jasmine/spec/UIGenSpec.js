@@ -1,7 +1,13 @@
+import $ from '../../jquery-2.1.1.min.js';
+import ListItem from '../../listItem.js';
+import UIGen from '../../UIGen.js';
+
 describe("listGen", function(){
   var foo,
       bar,
-      items;
+      items,
+      gen,
+      chrome;
 
 
   beforeEach(function(){
@@ -55,6 +61,17 @@ describe("listGen", function(){
         }
       }
     };
+    // spyOn(chrome.storage, "sync").and.returnValue({
+    //   sync: {
+    //     get: function(){
+    //       return;
+    //     },
+    //     set: function(){
+    //       return;
+    //     }
+    //   }
+    // });
+    gen.chrome = chrome;
   });
 
   afterEach(function(){
@@ -83,7 +100,7 @@ describe("listGen", function(){
       // Issue figuring out how to deal with randomly generated ID
 
       gen.addItem("foo");
-      ID = Object.keys(gen.userItems)[0];
+      var ID = Object.keys(gen.userItems)[0];
       expect(gen.userItems[ID]).toBeDefined();
     });
     it("should call makeElement", function(){
@@ -104,7 +121,7 @@ describe("listGen", function(){
   });
   describe("hideElement", function(){
     it("should set element height to 0px", function(){
-      newdiv = $("#new-div")[0];
+      var newdiv = $("#new-div")[0];
       newdiv.style.height = "50px";
       gen.hideElement(newdiv);
       expect(newdiv.style.height).toEqual("0px");
@@ -112,14 +129,14 @@ describe("listGen", function(){
   });
   describe("showElement", function(){
     it("should set element height to given height", function(){
-      el = $("#new-div")[0];
+      var el = $("#new-div")[0];
       gen.showElement(el, "80px");
       expect(el.style.height).toEqual("80px");
     });
   });
   describe("chooseSite", function(){
     it("should data-choice attribute to correct site", function(){
-      choice = $("#site-choice").data("choice");
+      var choice = $("#site-choice").data("choice");
       expect(choice).toEqual("google");
       gen.chooseSite("youtube");
       expect($("#site-choice").data("choice")).toEqual("youtube");
@@ -133,6 +150,7 @@ describe("listGen", function(){
   });
   describe("deleteItem", function(){
     //TODO: also hacky, same thing;
+    var ID;
     beforeEach(function(){
       gen.addItem("foo");
       ID = Object.keys(gen.userItems)[0];
