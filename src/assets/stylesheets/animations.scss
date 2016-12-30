@@ -57,3 +57,16 @@
   animation: cancel-to-add 1s 1;
   animation-fill-mode: forwards;
 }
+
+@keyframes removed {
+  100% {
+    border: 0;
+    height: 0;
+    padding: 0;
+  }
+}
+
+.removed {
+  animation: removed .4s 1;
+  animation-fill-mode: forwards;
+}

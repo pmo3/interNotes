@@ -1,6 +1,5 @@
 var UIGen = {
   userItems : {},
-  keyframesTemplate : document.querySelector('[type^=application]').textContent,
   replacementPattern : /\{\{height\}\}/g,
 
   makeElement : function(item){
@@ -62,9 +61,19 @@ var UIGen = {
   deleteItem : function(item){
     var key = item.ID;
     var li = $("#"+key);
-    UIGen.insertKeyFrames(li.height());
     li.addClass("removed");
     delete this.userItems[key];
+    var remaining = Object.keys(this.userItems).length;
+    if (remaining === 0) {
+      $('#list').addClass('removed');
+    }
+    setTimeout(function(){
+      li.remove();
+      if (remaining == 0) {
+        $('#list').remove();
+      }
+    }, 400);
+    // li.remove();
     this.saveChanges();
   },
 
@@ -80,10 +89,10 @@ var UIGen = {
   initAll : function(){
     this.getItems();
     chrome.browserAction.setBadgeBackgroundColor({color: '#FF0000'});
-    document.getElementById("add-icon").addEventListener("click", function(){
+    $('#add-icon').click(function(){
       UIGen.addItem(document.getElementById("item-input").value);
     });
-    document.getElementById("item-input").addEventListener("keypress", function(e){
+    $('#item-input').keypress(function(e){
       var key = e.which || e.keyCode;
       if (key == 13){
         UIGen.addItem(document.getElementById("item-input").value);

@@ -137,7 +137,7 @@ gulp.task('lint:js', function() {
 gulp.task('build:js', ['lint:js', 'build:clean'], function() {
   gulp.src([srcDir + '/js/jquery-2.1.1.min.js'])
   .pipe(gulp.dest(jsDest));
-  return gulp.src([jsSrc])
+  return gulp.src([jsSrc, '!' + srcDir + '/js/jasmine/**/*.js'])
     .pipe(concat('internotes.js'))
     .pipe(uglify({preserveComments: false, compress: true, mangle: true}).on('error',function(e){console.log('\x07',e.message);return this.end();}))
     .pipe(header(banner, {pkg: pkg, currentDate: currentDate}))
