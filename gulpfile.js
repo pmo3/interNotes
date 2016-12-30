@@ -21,6 +21,7 @@ var eslint      = require('gulp-eslint');
 var del         = require('del');
 var cleanhtml   = require('gulp-cleanhtml');
 var scsslint    = require('gulp-scss-lint');
+var karma       = require('karma');
 
 /*
 
@@ -133,7 +134,7 @@ gulp.task('lint:js', function() {
   .pipe(eslint.failOnError());
 });
 
-gulp.task('build:js', ["build:clean"], function() {
+gulp.task('build:js', ['lint:js', 'build:clean'], function() {
   gulp.src([srcDir + '/js/jquery-2.1.1.min.js'])
   .pipe(gulp.dest(jsDest));
   return gulp.src([jsSrc])
@@ -150,6 +151,15 @@ gulp.task("build:html", ["build:clean"], function() {
     pipe(gulp.dest(buildDir));
 });
 
+gulp.task("test:chrome", ['lint:js'], function(done) {
+  var opts = {
+    autoWatch: true,
+    browsers: ["Chrome"],
+    configFile: __dirname + "/config/karma/karma.conf.js"
+  };
+  new karma.Server.start(opts, done);
+});
+
 /*
 
 WATCH
@@ -157,11 +167,9 @@ WATCH
 
 */
 
-// Run the JS task followed by a reload
-// gulp.task('js-watch', ['js'], browserSync.reload);
-// gulp.task('watch', ['browsersync'], function() {
-//
-//   gulp.watch(sassSrc, ['styles']);
-//   gulp.watch(jsSrc, ['js-watch']);
-//
-// });
+gulp.task('watch', function() {
+
+  gulp.watch(sassSrc, ['lint:scss']);
+  gulp.watch(jsSrc, ['lint:js']);
+
+});

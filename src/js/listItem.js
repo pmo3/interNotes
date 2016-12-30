@@ -11,8 +11,8 @@ function ListItem(txt, site){
 }
 
 ListItem.prototype.buildURL = function(){
-  query = encodeURIComponent(this.txt);
-  baseURL = this.baseURLs[this.site];
+  var query = encodeURIComponent(this.txt);
+  var baseURL = this.baseURLs[this.site];
   return baseURL + query;
 };
 
@@ -41,7 +41,7 @@ Array.prototype.shuffle = function(){
 // and issues arising from multiple-word entries
 
 ListItem.prototype.generateID = function(){
-  letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+  var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
           "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
   return letters.shuffle().slice(0, 8).join("");

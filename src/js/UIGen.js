@@ -5,16 +5,16 @@ var UIGen = {
 
   makeElement : function(item){
     if (document.getElementById("list") == null){
-      ul = "<ul id='list'></ul>";
+      var ul = "<ul id='list'></ul>";
       $(ul).appendTo($(".main"));
     }
-    li = "<li class='lookupItem' id='"+item.ID+"'><a href='"+item.url+"'>"+item.txt+"</a><span><i class='fa fa-close' id='"+item.ID+"-close'></i></span></li>";
+    var li = "<li class='lookup-item' id='"+item.ID+"'><a href='"+item.url+"'>"+item.txt+"</a><span><i class='fa fa-close' id='"+item.ID+"-close'></i></span></li>";
     $(li).appendTo($("#list"));
     this.addClickListeners(item);
   },
 
   addClickListeners : function(item){
-    li = document.getElementById(item.ID);
+    var li = document.getElementById(item.ID);
     li.firstChild.addEventListener("click", function(){
       chrome.tabs.create({"url" : item.url});
     });
@@ -27,8 +27,8 @@ var UIGen = {
   addItem : function(input){
     //only run if input field is not empty
     if (input.length > 0){
-      site = $("#site-choice").data("choice");
-      item = new ListItem(input, site);
+      var site = $("#site-choice").data("choice");
+      var item = new ListItem(input, site); // eslint-disable-line no-undef
       this.userItems[item.ID] = item;
       this.makeElement(item);
       this.saveChanges();
@@ -53,7 +53,7 @@ var UIGen = {
   },
 
   chooseSite : function(site){
-    current = $("#site-choice").data("choice");
+    var current = $("#site-choice").data("choice");
     $("#site-icon").removeClass("fa-"+current);
     $("#site-choice").data("choice", site);
     $("#site-icon").addClass("fa-"+site);
@@ -112,7 +112,7 @@ var UIGen = {
       if (Object.keys(UIGen.userItems).length === 0){
         $("#list").remove();
       }
-    };
+    }
     if (Object.keys(UIGen.userItems).length > 0) {
       chrome.browserAction.setBadgeText({text: Object.keys(UIGen.userItems).length.toString()});
     }else{
