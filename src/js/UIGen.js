@@ -12,8 +12,11 @@ class UIGen {
       var ul = "<ul id='list'></ul>";
       $(ul).appendTo($(".main"));
     }
-    var li = "<li class='lookup-item' id='"+item.ID+"'><a href='"+item.url+"'>"+item.txt+"</a><span><i class='fa fa-close' id='"+item.ID+"-close'></i></span></li>";
-    $(li).appendTo($("#list"));
+    var li = `<li class='lookup-item' id='${item.ID}'><a href='${item.url}'>${item.txt}</a></li>`;
+    var $li = $(li);
+    var span = `<span><i class='fa fa-close' id='${item.ID}-close'></i></span>`
+    $(span).appendTo($li)
+    $li.appendTo($("#list"));
     this.addClickListeners(item);
   }
 
@@ -21,7 +24,7 @@ class UIGen {
     var gen = this;
     var li = document.getElementById(item.ID);
     li.firstChild.addEventListener("click", function(){
-      this.chrome.tabs.create({"url" : item.url});
+      gen.chrome.tabs.create({"url" : item.url});
     });
     var span = document.getElementById(item.ID+"-close");
     span.addEventListener("click", function(){
@@ -33,12 +36,12 @@ class UIGen {
     //only run if input field is not empty
     if (input.length > 0){
       var site = $("#site-choice").data("choice");
-      var item = new ListItem(input, site); // eslint-disable-line no-undef
+      var item = new ListItem(input, site);
       this.userItems[item.ID] = item;
       this.makeElement(item);
       this.saveChanges();
       $("#item-input")[0].value = '';
-      this.chrome.browserAction.setBadgeText({text: Object.keys(this.userItems).length.toString()});
+      this.setBadge();
     }
   }
 
@@ -46,14 +49,6 @@ class UIGen {
     this.chrome.storage.sync.set({"items" : this.userItems}, function(){
       console.log("Items saved");
     });
-  }
-
-  hideElement(element) {
-    element.style.height = "0px";
-  }
-
-  showElement(element, h) {
-    element.style.height = h;
   }
 
   chooseSite(site) {
@@ -66,19 +61,10 @@ class UIGen {
   deleteItem(item) {
     var key = item.ID;
     var li = $("#"+key);
-    li.addClass("removed");
     delete this.userItems[key];
-    var remaining = Object.keys(this.userItems).length;
-    if (remaining === 0) {
-      $('#list').addClass('removed');
-    }
-    setTimeout(function(){
-      li.remove();
-      if (remaining == 0) {
-        $('#list').remove();
-      }
-    }, 400);
+    this.removeElement(li);
     this.saveChanges();
+    this.setBadge();
   }
 
   getItems() {
@@ -121,19 +107,37 @@ class UIGen {
 
   }
 
-  removeElement(event) {
+  removeElement(element) {
     var gen = this;
-    if (event.animationName === 'disappear'){
-      event.target.parentNode.removeChild(event.target);
-      // remove ul so border doesn't show up in window
-      if (Object.keys(gen.userItems).length === 0){
-        $("#list").remove();
+    element.animate({
+      border: 0,
+      height: 0,
+      padding: 0
+    }, 400, function() {
+      element.remove();
+      var remaining = Object.keys(gen.userItems).length;
+      if (remaining === 0) {
+        $('#list').animate({
+          border: 0,
+          height: 0,
+          padding: 0
+        }, 400, function() {
+          $('#list').remove();
+        });
       }
-    }
-    if (Object.keys(gen.userItems).length > 0) {
-      this.chrome.browserAction.setBadgeText({text: Object.keys(gen.userItems).length.toString()});
-    }else{
-      this.chrome.browserAction.setBadgeText({text: ''});
+    });
+  }
+
+  setBadge() {
+    var numItems = Object.keys(this.userItems).length;
+    if (numItems === 0) {
+      this.chrome.browserAction.setBadgeText({
+        text: ""
+      });
+      return;
+    } else {
+      this.chrome.browserAction.setBadgeText({
+        text: numItems.toString()});
     }
   }
 }

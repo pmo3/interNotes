@@ -108,21 +108,7 @@ describe("listGen", function(){
       expect(gen.userItems).toEqual({});
     });
   });
-  describe("hideElement", function(){
-    it("should set element height to 0px", function(){
-      var newdiv = $("#new-div")[0];
-      newdiv.style.height = "50px";
-      gen.hideElement(newdiv);
-      expect(newdiv.style.height).toEqual("0px");
-    });
-  });
-  describe("showElement", function(){
-    it("should set element height to given height", function(){
-      var el = $("#new-div")[0];
-      gen.showElement(el, "80px");
-      expect(el.style.height).toEqual("80px");
-    });
-  });
+
   describe("chooseSite", function(){
     it("should data-choice attribute to correct site", function(){
       var choice = $("#site-choice").data("choice");
