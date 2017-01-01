@@ -158,3 +158,19 @@ body {
     width: 319px;
   }
 }
+
+footer {
+  padding: 10px 0 5px;
+
+  a:hover {
+    cursor: pointer;
+  }
+}
+
+.add-current-tab {
+  float: left;
+}
+
+.add-all-tabs {
+  float: right;
+}

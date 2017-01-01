@@ -80,6 +80,23 @@ class UIGen {
     }
   }
 
+  addCurrentTab() {
+    var gen = this;
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      var activeTab = tabs[0];
+      gen.addItem(activeTab.url);
+    })
+  }
+
+  addAllTabs() {
+    var gen = this;
+    chrome.tabs.query({currentWindow: true}, function(tabs) {
+      for (var tab of tabs) {
+        gen.addItem(tab.url);
+      }
+    })
+  }
+
   initAll() {
     try {
       var gen = this;
@@ -101,10 +118,15 @@ class UIGen {
         var choice = $(this).data("site");
         gen.chooseSite(choice);
       });
+      $('#current-tab-btn').click(function() {
+        gen.addCurrentTab();
+      })
+      $('#all-tabs-btn').click(function() {
+        gen.addAllTabs();
+      })
     } catch(err) {
       return;
     }
-
   }
 
   removeElement(element) {

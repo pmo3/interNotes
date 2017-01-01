@@ -5,77 +5,6 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href="assets/stylesheets/internotes.css" rel="stylesheet" type="text/css">
-    <script type="application">
-        @-webkit-keyframes disappear{
-
-          0% {
-            /* Sets the initial height to the measured height of the element */
-            height: {{height}};
-          }
-
-          30% {
-
-            -webkit-transform: translateX(-5%);
-            transform: translateX(-5%);
-          }
-
-          60% {
-            -webkit-transform: translateX(200%);
-            transform: translateX(200%);
-
-            /* Makes sur the height and bottom margin stay constant
-               till this point in the animation */
-            height: {{height}};
-            margin-bottom: 1em;
-          }
-
-          100% {
-
-            /* Keeps the element out of the screen. If it's not there,
-             * the element comes back to its original position
-             */
-            -webkit-transform: translateX(200%);
-            transform: translateX(200%);
-
-            /* Makes the blank space collapse */
-            height: 0;
-            margin-bottom: 0;
-          }
-        }
-
-
-          @keyframes disappear{
-
-          0% {
-            /* Sets the initial height to the measured height of the element */
-            height: {{height}};
-          }
-
-          30% {
-
-            -webkit-transform: translateX(-5%);
-            transform: translateX(-5%);
-          }
-
-          60% {
-            -webkit-transform: translateX(200%);
-            transform: translateX(200%);
-
-            /* Makes sur the height and bottom margin stay constant
-               till this point in the animation */
-            height: {{height}};
-            margin-bottom: 1em;
-          }
-
-          100% {
-
-            /* Keeps the element out of the screen. If it's not there,
-             * the element comes back to its original position
-             */
-            -webkit-transform: translateX(200%);
-            transform: translateX(200%);
-        }
-    </script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/internotes.js"></script>
 
@@ -98,5 +27,9 @@
     </div>
     <div style="clear:both"></div>
     <div class="main"></div>
+    <footer>
+      <a id="current-tab-btn" class="add-current-tab clearfix">Add current tab</a>
+      <a id="all-tabs-btn" class="add-all-tabs clearfix">Add all tabs</a>
+    </footer>
   </body>
 </html>
