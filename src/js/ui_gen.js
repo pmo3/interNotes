@@ -1,5 +1,5 @@
 import $ from './jquery-2.1.1.min.js';
-import ListItem from './listItem.js';
+import ListItem from './list_item.js';
 
 class UIGen {
   constructor(opts = {}) {

@@ -1,4 +1,4 @@
-import urlRegex from '../../urlRegex.js';
+import urlRegex from '../../url_regex.js';
 
 // this is really just a quick sanity check on the regex, as it is maintained and tested elsewhere: https://mathiasbynens.be/demo/url-regex
 

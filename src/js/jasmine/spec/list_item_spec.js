@@ -1,4 +1,4 @@
-import ListItem from '../../listItem.js';
+import ListItem from '../../list_item.js';
 
 describe("ListItem", function(){
   var listItem;

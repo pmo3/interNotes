@@ -1,4 +1,4 @@
-import urlRegex from './urlRegex.js';
+import urlRegex from './url_regex.js';
 // Implement Fisher-Yates algorithm to shuffle array
 Array.prototype.shuffle = function(){
   var currentIndex = this.length, temporaryValue, randomIndex ;

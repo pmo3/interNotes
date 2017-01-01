@@ -1,6 +1,6 @@
 import $ from '../../jquery-2.1.1.min.js';
-import ListItem from '../../listItem.js';
-import UIGen from '../../UIGen.js';
+import ListItem from '../../list_item.js';
+import UIGen from '../../ui_gen.js';
 
 describe("listGen", function(){
   var foo,
