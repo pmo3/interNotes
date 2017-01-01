@@ -1,3 +1,4 @@
+import urlRegex from './urlRegex.js';
 // Implement Fisher-Yates algorithm to shuffle array
 Array.prototype.shuffle = function(){
   var currentIndex = this.length, temporaryValue, randomIndex ;
@@ -27,14 +28,19 @@ class ListItem {
       google: "https://www.google.com/search?q=",
       youtube: "https://www.youtube.com/results?search_query="
     };
+    this.urlRegex = urlRegex;
     this.ID = this.generateID();
     this.url = this.buildURL();
   }
 
   buildURL() {
-    var query = encodeURIComponent(this.txt);
-    var baseURL = this.baseURLs[this.site];
-    return baseURL + query;
+    if(this.isURL()) {
+      return this.txt;
+    } else {
+      var query = encodeURIComponent(this.txt);
+      var baseURL = this.baseURLs[this.site];
+      return baseURL + query;
+    }
   }
 
   generateID() {
@@ -42,6 +48,10 @@ class ListItem {
             "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
     return letters.shuffle().slice(0, 8).join("");
+  }
+
+  isURL() {
+    return this.urlRegex.test(this.txt);
   }
 }
 

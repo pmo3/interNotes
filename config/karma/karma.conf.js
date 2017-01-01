@@ -1,17 +1,3 @@
-// module.exports = function(config) {
-//   config.set({
-//     frameworks: ['jasmine'],
-//     reporters: ['spec'],
-//     browsers: ['Chrome'],
-//     files: [
-//       '../../src/js/jquery-2.1.1.min.js',
-//       '../../src/js/listItem.js',
-//       '../../src/js/UIGen.js',
-//       '../../src/js/jasmine/spec/**/*.js'
-//     ]
-//   });
-// };
-
 module.exports = function(config) {
   config.set({
     autoWatch: true,
@@ -38,15 +24,11 @@ module.exports = function(config) {
     port: 9876,
     preprocessors: {
       "src/js/**/*.js": ["browserify"]
-      // "test/**/*.js": ["browserify"]
     },
     reporters: ["dots"],
     runnerPort: 9100,
     singleRun: false,
     files: [
-      // 'src/js/jquery-2.1.1.min.js',
-      // 'src/js/listItem.js',
-      // 'src/js/UIGen.js',
       'src/js/jasmine/spec/**/*.js'
     ]
   });
