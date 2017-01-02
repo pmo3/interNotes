@@ -42,6 +42,8 @@ class UIGen {
       this.saveChanges();
       $("#item-input")[0].value = '';
       this.setBadge();
+      $('#add-icon').css('color', '#D8D8D8');
+      $('#add-icon').css('cursor', 'auto');
     }
   }
 
@@ -134,20 +136,22 @@ class UIGen {
     element.animate({
       border: 0,
       height: 0,
-      padding: 0
-    }, 400, function() {
+      padding: 0,
+      margin: 0
+    }, 300, function() {
       element.remove();
-      var remaining = Object.keys(gen.userItems).length;
-      if (remaining === 0) {
-        $('#list').animate({
-          border: 0,
-          height: 0,
-          padding: 0
-        }, 400, function() {
-          $('#list').remove();
-        });
-      }
     });
+    var remaining = Object.keys(gen.userItems).length;
+    if (remaining === 0) {
+      $('#list').animate({
+        border: 0,
+        height: 0,
+        padding: 0,
+        margin: 0
+      }, 300, function() {
+        $('#list').remove();
+      });
+    }
   }
 
   setBadge() {
@@ -170,14 +174,14 @@ document.addEventListener("DOMContentLoaded", function(){
   gen.initAll();
 });
 
-document.addEventListener('animationEnd', gen.removeElement);
-document.addEventListener('webkitAnimationEnd', gen.removeElement);
 $(document).ready(function(){
   $('#item-input').keyup(function(){
     if ( $(this).val() == ""){
       $('#add-icon').css('color', '#D8D8D8');
+      $('#add-icon').css('cursor', 'auto');
     }else{
       $('#add-icon').css('color', '#26a69a');
+      $('#add-icon').css('cursor', 'pointer');
     }
   });
 });
