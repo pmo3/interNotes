@@ -42,8 +42,7 @@ class UIGen {
       this.saveChanges();
       $("#item-input")[0].value = '';
       this.setBadge();
-      $('#add-icon').css('color', '#D8D8D8');
-      $('#add-icon').css('cursor', 'auto');
+      $('#add-icon').removeClass('add-icon-active');
     }
   }
 
@@ -177,11 +176,9 @@ document.addEventListener("DOMContentLoaded", function(){
 $(document).ready(function(){
   $('#item-input').keyup(function(){
     if ( $(this).val() == ""){
-      $('#add-icon').css('color', '#D8D8D8');
-      $('#add-icon').css('cursor', 'auto');
+      $('#add-icon').removeClass('add-icon-active');
     }else{
-      $('#add-icon').css('color', '#26a69a');
-      $('#add-icon').css('cursor', 'pointer');
+      $('#add-icon').addClass('add-icon-active');
     }
   });
 });

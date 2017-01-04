@@ -43,6 +43,8 @@ var jsDest = buildDir + '/js';
 var jsDestFile = buildDir + "/internotes.js";
 var imgSrc = srcDir + '/assets/images/**/*.{jpg,jpeg,png}';
 var imgDest = buildDir + '/assets/images';
+var fontSrc = srcDir + '/assets/fonts/**/*.{eot,svg,ttf,woff,woff2,otf}';
+var fontDest = buildDir + '/fonts';
 /*
 
 ERROR HANDLING
@@ -100,7 +102,7 @@ gulp.task('build:css', ['build:clean', 'lint:scss'], function() {
 });
 
 gulp.task('lint:scss', function() {
-  gulp.src(sassSrc)
+  gulp.src([sassSrc, '!'+ srcDir + '/assets/stylesheets/font_awesome/**'])
   .pipe(scsslint());
 });
 
@@ -126,6 +128,8 @@ gulp.task("build:clean", function() {
 gulp.task("build:copy", ["build:clean"], function() {
   gulp.src([imgSrc]).
     pipe(gulp.dest(imgDest));
+  gulp.src([fontSrc]).
+  pipe(gulp.dest(fontDest));
   return gulp.src(srcDir + "/manifest.json").
     pipe(gulp.dest(buildDir));
 });

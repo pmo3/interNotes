@@ -14,8 +14,8 @@ body {
 }
 
 .header {
-  background: $brand-secondary;
-  box-shadow: 0 2px 3px $brand-secondary-600;
+  background: $brand-primary;
+  box-shadow: 0 2px 3px $brand-dark;
   color: $font-color-light;
   font-size: 16px;
   height: 35px;
@@ -41,7 +41,7 @@ body {
   line-height: 14px;
   max-width: 355px;
   overflow: hidden;
-  padding: 5px 25px 5px 5px;
+  padding: 5px 25px 5px 2px;
   position: relative;
   word-wrap: break-word;
   z-index: 1;
@@ -75,7 +75,7 @@ body {
 }
 
 .main li::after {
-  background: $brand-secondary-100;
+  background: $brand-light;
   bottom: 0;
   content: '';
   height: auto;
@@ -177,4 +177,10 @@ footer {
 
 .add-all-tabs {
   float: right;
+}
+
+.add-icon-active {
+  color: $brand-primary;
+  cursor: pointer;
+  text-shadow: 1px 2px 3px $li-border;
 }
